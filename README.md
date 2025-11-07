@@ -1,3 +1,22 @@
+# SMT Agent
+
+All commands below are assumed to be run in the root directory.
+
+## Installation
+
+```bash
+pip install -e .
+```
+
+## Usage
+
+```bash
+# now only tested on local environment (not sandboxed version)
+mini -c src/minisweagent/config/smt.yaml -t <smt_path>
+```
+
+***
+
 <div align="center">
 <a href="https://mini-swe-agent.com/latest/"><img src="https://github.com/SWE-agent/mini-swe-agent/raw/main/docs/assets/mini-swe-agent-banner.svg" alt="mini-swe-agent banner" style="height: 7em"/></a>
 </div>
