@@ -34,33 +34,28 @@ def format_message(role: str, content: str, extra: dict[str, Any] | None = None)
     return "\n".join(lines)
 
 
-@app.command()
-def replay(
-    log_path: Path = typer.Argument(..., help="Path to log.json file"),
-    show_tokens: bool = typer.Option(False, "--show-tokens", "-t", help="Show token usage for each message"),
-    show_stats: bool = typer.Option(True, "--stats/--no-stats", help="Show summary statistics"),
-):
-    """Replay the LLM conversation from a log.json file."""
+def generate_readable_log(log_path: Path, show_tokens: bool = False, show_stats: bool = True) -> str:
+    """Generate a readable log from a log.json file."""
     if not log_path.exists():
-        typer.echo(f"Error: File not found: {log_path}", err=True)
-        raise typer.Exit(1)
+        return f"Error: File not found: {log_path}"
 
     data = json.loads(log_path.read_text())
+    output_lines = []
 
     if show_stats:
         info = data.get("info", {})
         model_stats = info.get("model_stats", {})
-        typer.echo("\n" + "=" * 80)
-        typer.echo("CONVERSATION SUMMARY")
-        typer.echo("=" * 80)
-        typer.echo(f"Model: {info.get('config', {}).get('model', {}).get('model_name', 'N/A')}")
-        typer.echo(f"Total API calls: {model_stats.get('api_calls', 0)}")
-        typer.echo(f"Total cost: ${model_stats.get('instance_cost', 0):.6f}")
-        typer.echo(f"Exit status: {info.get('exit_status', 'N/A')}")
-        typer.echo("=" * 80)
+        output_lines.append("\n" + "=" * 80)
+        output_lines.append("CONVERSATION SUMMARY")
+        output_lines.append("=" * 80)
+        output_lines.append(f"Model: {info.get('config', {}).get('model', {}).get('model_name', 'N/A')}")
+        output_lines.append(f"Total API calls: {model_stats.get('api_calls', 0)}")
+        output_lines.append(f"Total cost: ${model_stats.get('instance_cost', 0):.6f}")
+        output_lines.append(f"Exit status: {info.get('exit_status', 'N/A')}")
+        output_lines.append("=" * 80)
 
     messages = data.get("messages", [])
-    typer.echo(f"\nReplaying {len(messages)} messages...\n")
+    output_lines.append(f"\nReplaying {len(messages)} messages...\n")
 
     for _, msg in enumerate(messages, 1):
         role = msg.get("role", "unknown")
@@ -68,11 +63,33 @@ def replay(
         extra = msg.get("extra") if show_tokens else None
 
         formatted = format_message(role, content, extra)
-        typer.echo(formatted)
+        output_lines.append(formatted)
 
-    typer.echo(f"\n{'=' * 80}")
-    typer.echo("End of conversation")
-    typer.echo("=" * 80)
+    output_lines.append(f"\n{'=' * 80}")
+    output_lines.append("End of conversation")
+    output_lines.append("=" * 80)
+
+    return "\n".join(output_lines)
+
+
+@app.command()
+def replay(
+    log_path: Path = typer.Argument(..., help="Path to log.json file"),
+    show_tokens: bool = typer.Option(False, "--show-tokens", "-t", help="Show token usage for each message"),
+    show_stats: bool = typer.Option(True, "--stats/--no-stats", help="Show summary statistics"),
+    output: Path | None = typer.Option(
+        None, "-o", "--output", help="Output file path (if not specified, prints to stdout)"
+    ),
+):
+    """Replay the LLM conversation from a log.json file."""
+    output_text = generate_readable_log(log_path, show_tokens=show_tokens, show_stats=show_stats)
+
+    if output:
+        output.parent.mkdir(parents=True, exist_ok=True)
+        output.write_text(output_text)
+        typer.echo(f"Replay saved to: {output}")
+    else:
+        typer.echo(output_text)
 
 
 if __name__ == "__main__":
