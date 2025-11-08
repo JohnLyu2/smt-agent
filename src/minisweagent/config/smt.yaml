@@ -21,7 +21,7 @@ agent:
 
     ## Recommended Workflow
 
-    For each problem, store all the smt2 files, solving trace files, and analysis files in the same directory as the problem file.
+    The directory of {{task}} is the working directory of this task. Put all the modified/created smt2 files, solving trace files, and analysis scripts in this directory.
 
     This workflow should be done step-by-step.
 
