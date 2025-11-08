@@ -1,10 +1,11 @@
 import dataclasses
 import json
+import subprocess
 from collections.abc import Callable
 from pathlib import Path
 from typing import Any
 
-from minisweagent import Agent, __version__
+from minisweagent import Agent, __version__, package_dir
 
 
 def _get_class_name_with_module(obj: Any) -> str:
@@ -17,6 +18,22 @@ def _asdict(obj: Any) -> dict:
     if dataclasses.is_dataclass(obj):
         return dataclasses.asdict(obj)  # type: ignore[arg-type]
     return obj  # let's try our luck
+
+
+def _get_git_commit() -> str | None:
+    """Get the current git commit hash."""
+    try:
+        repo_root = package_dir.parent.parent
+        result = subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            cwd=repo_root,
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+        return result.stdout.strip()
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        return None
 
 
 def save_traj(
@@ -51,6 +68,7 @@ def save_traj(
                 "api_calls": 0,
             },
             "mini_version": __version__,
+            "git_commit": _get_git_commit(),
         },
         "messages": [],
         "trajectory_format": "mini-swe-agent-1",
