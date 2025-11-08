@@ -1,7 +1,5 @@
 # SMT Agent
 
-All commands below are assumed to be run in the root directory.
-
 ## Installation
 
 ```bash
@@ -10,10 +8,15 @@ pip install -e .
 
 ## Usage
 
+Start the SMT assistant with one SMT task:
+
 ```bash
-# now only tested on local environment (not sandboxed version)
-mini -c src/minisweagent/config/smt.yaml -t <smt_path>
+smt_assist -t <smt_path>
 ```
+
+For each run, a working directory will be created under the `experiments/` folder, named by the SMT file name and the timestamp. You can find all related files and logs in this directory.
+
+You can check the SMT-specific configuration file at `src/minisweagent/config/smt.yaml`.
 
 ***
 
