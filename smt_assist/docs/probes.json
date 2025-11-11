@@ -1,0 +1,128 @@
+{
+  "ackr-bound-probe": {
+    "description": "A probe to give an upper bound of Ackermann congruence lemmas that a formula might generate."
+  },
+  "is-unbounded": {
+    "description": "true if the goal contains integer/real constants that do not have lower/upper bounds."
+  },
+  "is-pb": {
+    "description": "true if the goal is a pseudo-boolean problem."
+  },
+  "arith-max-deg": {
+    "description": "max polynomial total degree of an arithmetic atom."
+  },
+  "arith-avg-deg": {
+    "description": "avg polynomial total degree of an arithmetic atom."
+  },
+  "arith-max-bw": {
+    "description": "max coefficient bit width."
+  },
+  "arith-avg-bw": {
+    "description": "avg coefficient bit width."
+  },
+  "is-qflia": {
+    "description": "true if the goal is in QF_LIA."
+  },
+  "is-qfauflia": {
+    "description": "true if the goal is in QF_AUFLIA."
+  },
+  "is-qflra": {
+    "description": "true if the goal is in QF_LRA."
+  },
+  "is-qflira": {
+    "description": "true if the goal is in QF_LIRA."
+  },
+  "is-ilp": {
+    "description": "true if the goal is ILP."
+  },
+  "is-qfnia": {
+    "description": "true if the goal is in QF_NIA (quantifier-free nonlinear integer arithmetic)."
+  },
+  "is-qfnra": {
+    "description": "true if the goal is in QF_NRA (quantifier-free nonlinear real arithmetic)."
+  },
+  "is-nia": {
+    "description": "true if the goal is in NIA (nonlinear integer arithmetic, formula may have quantifiers)."
+  },
+  "is-nra": {
+    "description": "true if the goal is in NRA (nonlinear real arithmetic, formula may have quantifiers)."
+  },
+  "is-nira": {
+    "description": "true if the goal is in NIRA (nonlinear integer and real arithmetic, formula may have quantifiers)."
+  },
+  "is-lia": {
+    "description": "true if the goal is in LIA (linear integer arithmetic, formula may have quantifiers)."
+  },
+  "is-lra": {
+    "description": "true if the goal is in LRA (linear real arithmetic, formula may have quantifiers)."
+  },
+  "is-lira": {
+    "description": "true if the goal is in LIRA (linear integer and real arithmetic, formula may have quantifiers)."
+  },
+  "is-qfufnra": {
+    "description": "true if the goal is QF_UFNRA (quantifier-free nonlinear real arithmetic with other theories)."
+  },
+  "is-qfbv-eq": {
+    "description": "true if the goal is in a fragment of QF_BV which uses only =, extract, concat."
+  },
+  "is-qffp": {
+    "description": "true if the goal is in QF_FP (floats)."
+  },
+  "is-qffpbv": {
+    "description": "true if the goal is in QF_FPBV (floats+bit-vectors)."
+  },
+  "is-qffplra": {
+    "description": "true if the goal is in QF_FPLRA."
+  },
+  "memory": {
+    "description": "amount of used memory in megabytes."
+  },
+  "depth": {
+    "description": "depth of the input goal."
+  },
+  "size": {
+    "description": "number of assertions in the given goal."
+  },
+  "num-exprs": {
+    "description": "number of expressions/terms in the given goal."
+  },
+  "num-consts": {
+    "description": "number of non Boolean constants in the given goal."
+  },
+  "num-bool-consts": {
+    "description": "number of Boolean constants in the given goal."
+  },
+  "num-arith-consts": {
+    "description": "number of arithmetic constants in the given goal."
+  },
+  "num-bv-consts": {
+    "description": "number of bit-vector constants in the given goal."
+  },
+  "produce-proofs": {
+    "description": "true if proof generation is enabled for the given goal."
+  },
+  "produce-model": {
+    "description": "true if model generation is enabled for the given goal."
+  },
+  "produce-unsat-cores": {
+    "description": "true if unsat-core generation is enabled for the given goal."
+  },
+  "has-quantifiers": {
+    "description": "true if the goal contains quantifiers."
+  },
+  "has-patterns": {
+    "description": "true if the goal contains quantifiers with patterns."
+  },
+  "is-propositional": {
+    "description": "true if the goal is in propositional logic."
+  },
+  "is-qfbv": {
+    "description": "true if the goal is in QF_BV."
+  },
+  "is-qfaufbv": {
+    "description": "true if the goal is in QF_AUFBV."
+  },
+  "is-quasi-pb": {
+    "description": "true if the goal is quasi-pb."
+  }
+}

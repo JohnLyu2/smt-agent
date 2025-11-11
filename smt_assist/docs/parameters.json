@@ -1,0 +1,3334 @@
+{
+  "global": {
+    "auto_config": {
+      "type": "bool",
+      "description": "use heuristics to automatically select solver and configure it",
+      "default": "true"
+    },
+    "ctrl_c": {
+      "type": "bool",
+      "description": "enable interrupts from ctrl-c",
+      "default": "true"
+    },
+    "debug_ref_count": {
+      "type": "bool",
+      "description": "debug support for AST reference counting",
+      "default": "false"
+    },
+    "dot_proof_file": {
+      "type": "string",
+      "description": "file in which to output graphical proofs",
+      "default": "proof.dot"
+    },
+    "dump_models": {
+      "type": "bool",
+      "description": "dump models whenever check-sat returns sat",
+      "default": "false"
+    },
+    "encoding": {
+      "type": "string",
+      "description": "string encoding used internally: unicode|bmp|ascii",
+      "default": "unicode"
+    },
+    "memory_high_watermark": {
+      "type": "unsigned int",
+      "description": "set high watermark for memory consumption (in bytes), if 0 then there is no limit",
+      "default": "0"
+    },
+    "memory_high_watermark_mb": {
+      "type": "unsigned int",
+      "description": "set high watermark for memory consumption (in megabytes), if 0 then there is no limit",
+      "default": "0"
+    },
+    "memory_max_alloc_count": {
+      "type": "unsigned int",
+      "description": "set hard upper limit for memory allocations, if 0 then there is no limit",
+      "default": "0"
+    },
+    "memory_max_size": {
+      "type": "unsigned int",
+      "description": "set hard upper limit for memory consumption (in megabytes), if 0 then there is no limit",
+      "default": "0"
+    },
+    "model": {
+      "type": "bool",
+      "description": "model generation for solvers, this parameter can be overwritten when creating a solver",
+      "default": "true"
+    },
+    "model_validate": {
+      "type": "bool",
+      "description": "validate models produced by solvers",
+      "default": "false"
+    },
+    "proof": {
+      "type": "bool",
+      "description": "proof generation, it must be enabled when the Z3 context is created",
+      "default": "false"
+    },
+    "rlimit": {
+      "type": "unsigned int",
+      "description": "default resource limit used for solvers. Unrestricted when set to 0.",
+      "default": "0"
+    },
+    "smtlib2_compliant": {
+      "type": "bool",
+      "description": "enable/disable SMT-LIB 2.0 compliance",
+      "default": "false"
+    },
+    "stats": {
+      "type": "bool",
+      "description": "enable/disable statistics",
+      "default": "false"
+    },
+    "timeout": {
+      "type": "unsigned int",
+      "description": "(default: infty) timeout in milliseconds.",
+      "default": "4294967295"
+    },
+    "trace": {
+      "type": "bool",
+      "description": "trace generation for VCC",
+      "default": "false"
+    },
+    "trace_file_name": {
+      "type": "string",
+      "description": "trace out file name (see option 'trace')",
+      "default": "z3.log"
+    },
+    "type_check": {
+      "type": "bool",
+      "description": "type checker (alias for well_sorted_check)",
+      "default": "true"
+    },
+    "unsat_core": {
+      "type": "bool",
+      "description": "unsat-core generation for solvers, this parameter can be overwritten when creating a solver, not every solver in Z3 supports unsat core generation",
+      "default": "false"
+    },
+    "verbose": {
+      "type": "unsigned int",
+      "description": "be verbose, where the value is the verbosity level",
+      "default": "0"
+    },
+    "warning": {
+      "type": "bool",
+      "description": "enable/disable warning messages",
+      "default": "true"
+    },
+    "well_sorted_check": {
+      "type": "bool",
+      "description": "type checker",
+      "default": "false"
+    }
+  },
+  "pi": {
+    "description": "pattern inference (heuristics) for universal formulas (without annotation)",
+    "arith": {
+      "type": "unsigned int",
+      "description": "0 - do not infer patterns with arithmetic terms, 1 - use patterns with arithmetic terms if there is no other pattern, 2 - always use patterns with arithmetic terms",
+      "default": "1"
+    },
+    "arith_weight": {
+      "type": "unsigned int",
+      "description": "default weight for quantifiers where the only available pattern has nested arithmetic terms",
+      "default": "5"
+    },
+    "block_loop_patterns": {
+      "type": "bool",
+      "description": "block looping patterns during pattern inference",
+      "default": "true"
+    },
+    "decompose_patterns": {
+      "type": "bool",
+      "description": "allow decomposition of patterns into multipatterns",
+      "default": "true"
+    },
+    "enabled": {
+      "type": "bool",
+      "description": "enable a heuristic to infer patterns, when they are not provided",
+      "default": "true"
+    },
+    "max_multi_patterns": {
+      "type": "unsigned int",
+      "description": "when patterns are not provided, the prover uses a heuristic to infer them, this option sets the threshold on the number of extra multi-patterns that can be created; by default, the prover creates at most one multi-pattern when there is no unary pattern",
+      "default": "0"
+    },
+    "non_nested_arith_weight": {
+      "type": "unsigned int",
+      "description": "default weight for quantifiers where the only available pattern has non nested arithmetic terms",
+      "default": "10"
+    },
+    "pull_quantifiers": {
+      "type": "bool",
+      "description": "pull nested quantifiers, if no pattern was found",
+      "default": "true"
+    },
+    "use_database": {
+      "type": "bool",
+      "description": "use pattern database",
+      "default": "false"
+    },
+    "warnings": {
+      "type": "bool",
+      "description": "enable/disable warning messages in the pattern inference module",
+      "default": "false"
+    }
+  },
+  "tactic": {
+    "description": "tactic parameters",
+    "blast_term_ite.max_inflation": {
+      "type": "unsigned int",
+      "description": "multiplicative factor of initial term size.",
+      "default": "4294967295"
+    },
+    "blast_term_ite.max_steps": {
+      "type": "unsigned int",
+      "description": "maximal number of steps allowed for tactic.",
+      "default": "4294967295"
+    },
+    "default_tactic": {
+      "type": "symbol",
+      "description": "overwrite default tactic in strategic solver",
+      "default": ""
+    },
+    "lia2card.max_ite_nesting": {
+      "type": "unsigned int",
+      "description": "maximal nesting depth for ite expressions to be compiled into PB constraints",
+      "default": "4"
+    },
+    "lia2card.max_range": {
+      "type": "unsigned int",
+      "description": "maximal range of integers to compilation into Booleans",
+      "default": "100"
+    },
+    "propagate_values.max_rounds": {
+      "type": "unsigned int",
+      "description": "maximal number of rounds to propagate values.",
+      "default": "4"
+    },
+    "randomizer.seed": {
+      "type": "unsigned int",
+      "description": "seed for randomizer pre-processor",
+      "default": "0"
+    },
+    "solve_eqs.context_solve": {
+      "type": "bool",
+      "description": "solve equalities within disjunctions.",
+      "default": "true"
+    },
+    "solve_eqs.ite_solver": {
+      "type": "bool",
+      "description": "use if-then-else solvers.",
+      "default": "true"
+    },
+    "solve_eqs.max_occs": {
+      "type": "unsigned int",
+      "description": "maximum number of occurrences for considering a variable for gaussian eliminations.",
+      "default": "4294967295"
+    },
+    "solve_eqs.theory_solver": {
+      "type": "bool",
+      "description": "use theory solvers.",
+      "default": "true"
+    }
+  },
+  "pp": {
+    "description": "pretty printer",
+    "bounded": {
+      "type": "bool",
+      "description": "ignore characters exceeding max width",
+      "default": "false"
+    },
+    "bv_literals": {
+      "type": "bool",
+      "description": "use Bit-Vector literals (e.g, #x0F and #b0101) during pretty printing",
+      "default": "true"
+    },
+    "bv_neg": {
+      "type": "bool",
+      "description": "use bvneg when displaying Bit-Vector literals where the most significant bit is 1",
+      "default": "false"
+    },
+    "decimal": {
+      "type": "bool",
+      "description": "pretty print real numbers using decimal notation (the output may be truncated). Z3 adds a ? if the value is not precise",
+      "default": "false"
+    },
+    "decimal_precision": {
+      "type": "unsigned int",
+      "description": "maximum number of decimal places to be used when pp.decimal=true",
+      "default": "10"
+    },
+    "fixed_indent": {
+      "type": "bool",
+      "description": "use a fixed indentation for applications",
+      "default": "false"
+    },
+    "flat_assoc": {
+      "type": "bool",
+      "description": "flat associative operators (when pretty printing SMT2 terms/formulas)",
+      "default": "true"
+    },
+    "fp_real_literals": {
+      "type": "bool",
+      "description": "use real-numbered floating point literals (e.g, +1.0p-1) during pretty printing",
+      "default": "false"
+    },
+    "max_depth": {
+      "type": "unsigned int",
+      "description": "max. term depth (when pretty printing SMT2 terms/formulas)",
+      "default": "5"
+    },
+    "max_indent": {
+      "type": "unsigned int",
+      "description": "max. indentation in pretty printer",
+      "default": "4294967295"
+    },
+    "max_num_lines": {
+      "type": "unsigned int",
+      "description": "max. number of lines to be displayed in pretty printer",
+      "default": "4294967295"
+    },
+    "max_ribbon": {
+      "type": "unsigned int",
+      "description": "max. ribbon (width - indentation) in pretty printer",
+      "default": "80"
+    },
+    "max_width": {
+      "type": "unsigned int",
+      "description": "max. width in pretty printer",
+      "default": "80"
+    },
+    "min_alias_size": {
+      "type": "unsigned int",
+      "description": "min. size for creating an alias for a shared term (when pretty printing SMT2 terms/formulas)",
+      "default": "10"
+    },
+    "no_lets": {
+      "type": "bool",
+      "description": "dont print lets in low level SMT printer",
+      "default": "false"
+    },
+    "pretty_proof": {
+      "type": "bool",
+      "description": "use slower, but prettier, printer for proofs",
+      "default": "false"
+    },
+    "simplify_implies": {
+      "type": "bool",
+      "description": "simplify nested implications for pretty printing",
+      "default": "true"
+    },
+    "single_line": {
+      "type": "bool",
+      "description": "ignore line breaks when true",
+      "default": "false"
+    }
+  },
+  "sat": {
+    "description": "propositional SAT solver",
+    "abce": {
+      "type": "bool",
+      "description": "eliminate blocked clauses using asymmetric literals",
+      "default": "false"
+    },
+    "acce": {
+      "type": "bool",
+      "description": "eliminate covered clauses using asymmetric added literals",
+      "default": "false"
+    },
+    "anf": {
+      "type": "bool",
+      "description": "enable ANF based simplification in-processing",
+      "default": "false"
+    },
+    "anf.delay": {
+      "type": "unsigned int",
+      "description": "delay ANF simplification by in-processing round",
+      "default": "2"
+    },
+    "anf.exlin": {
+      "type": "bool",
+      "description": "enable extended linear simplification",
+      "default": "false"
+    },
+    "asymm_branch": {
+      "type": "bool",
+      "description": "asymmetric branching",
+      "default": "true"
+    },
+    "asymm_branch.all": {
+      "type": "bool",
+      "description": "asymmetric branching on all literals per clause",
+      "default": "false"
+    },
+    "asymm_branch.delay": {
+      "type": "unsigned int",
+      "description": "number of simplification rounds to wait until invoking asymmetric branch simplification",
+      "default": "1"
+    },
+    "asymm_branch.limit": {
+      "type": "unsigned int",
+      "description": "approx. maximum number of literals visited during asymmetric branching",
+      "default": "100000000"
+    },
+    "asymm_branch.rounds": {
+      "type": "unsigned int",
+      "description": "maximal number of rounds to run asymmetric branch simplifications if progress is made",
+      "default": "2"
+    },
+    "asymm_branch.sampled": {
+      "type": "bool",
+      "description": "use sampling based asymmetric branching based on binary implication graph",
+      "default": "true"
+    },
+    "ate": {
+      "type": "bool",
+      "description": "asymmetric tautology elimination",
+      "default": "true"
+    },
+    "backtrack.conflicts": {
+      "type": "unsigned int",
+      "description": "number of conflicts before enabling chronological backtracking",
+      "default": "4000"
+    },
+    "backtrack.scopes": {
+      "type": "unsigned int",
+      "description": "number of scopes to enable chronological backtracking",
+      "default": "100"
+    },
+    "bca": {
+      "type": "bool",
+      "description": "blocked clause addition - add blocked binary clauses",
+      "default": "false"
+    },
+    "bce": {
+      "type": "bool",
+      "description": "eliminate blocked clauses",
+      "default": "false"
+    },
+    "bce_at": {
+      "type": "unsigned int",
+      "description": "eliminate blocked clauses only once at the given simplification round",
+      "default": "2"
+    },
+    "bce_delay": {
+      "type": "unsigned int",
+      "description": "delay eliminate blocked clauses until simplification round",
+      "default": "2"
+    },
+    "blocked_clause_limit": {
+      "type": "unsigned int",
+      "description": "maximum number of literals visited during blocked clause elimination",
+      "default": "100000000"
+    },
+    "branching.anti_exploration": {
+      "type": "bool",
+      "description": "apply anti-exploration heuristic for branch selection",
+      "default": "false"
+    },
+    "branching.heuristic": {
+      "type": "symbol",
+      "description": "branching heuristic vsids, chb",
+      "default": "vsids"
+    },
+    "burst_search": {
+      "type": "unsigned int",
+      "description": "number of conflicts before first global simplification",
+      "default": "100"
+    },
+    "cardinality.encoding": {
+      "type": "symbol",
+      "description": "encoding used for at-most-k constraints: grouped, bimander, ordered, unate, circuit",
+      "default": "grouped"
+    },
+    "cardinality.solver": {
+      "type": "bool",
+      "description": "use cardinality solver",
+      "default": "true"
+    },
+    "cce": {
+      "type": "bool",
+      "description": "eliminate covered clauses",
+      "default": "false"
+    },
+    "core.minimize": {
+      "type": "bool",
+      "description": "minimize computed core",
+      "default": "false"
+    },
+    "core.minimize_partial": {
+      "type": "bool",
+      "description": "apply partial (cheap) core minimization",
+      "default": "false"
+    },
+    "cut": {
+      "type": "bool",
+      "description": "enable AIG based simplification in-processing",
+      "default": "false"
+    },
+    "cut.aig": {
+      "type": "bool",
+      "description": "extract aigs (and ites) from cluases for cut simplification",
+      "default": "false"
+    },
+    "cut.delay": {
+      "type": "unsigned int",
+      "description": "delay cut simplification by in-processing round",
+      "default": "2"
+    },
+    "cut.dont_cares": {
+      "type": "bool",
+      "description": "integrate dont cares with cuts",
+      "default": "true"
+    },
+    "cut.force": {
+      "type": "bool",
+      "description": "force redoing cut-enumeration until a fixed-point",
+      "default": "false"
+    },
+    "cut.lut": {
+      "type": "bool",
+      "description": "extract luts from clauses for cut simplification",
+      "default": "false"
+    },
+    "cut.npn3": {
+      "type": "bool",
+      "description": "extract 3 input functions from clauses for cut simplification",
+      "default": "false"
+    },
+    "cut.redundancies": {
+      "type": "bool",
+      "description": "integrate redundancy checking of cuts",
+      "default": "true"
+    },
+    "cut.xor": {
+      "type": "bool",
+      "description": "extract xors from clauses for cut simplification",
+      "default": "false"
+    },
+    "ddfw.init_clause_weight": {
+      "type": "unsigned int",
+      "description": "initial clause weight for DDFW local search",
+      "default": "8"
+    },
+    "ddfw.reinit_base": {
+      "type": "unsigned int",
+      "description": "increment basis for geometric backoff scheme of re-initialization of weights",
+      "default": "10000"
+    },
+    "ddfw.restart_base": {
+      "type": "unsigned int",
+      "description": "number of flips used a starting point for hesitant restart backoff",
+      "default": "100000"
+    },
+    "ddfw.threads": {
+      "type": "unsigned int",
+      "description": "number of ddfw threads to run in parallel with sat solver",
+      "default": "0"
+    },
+    "ddfw.use_reward_pct": {
+      "type": "unsigned int",
+      "description": "percentage to pick highest reward variable when it has reward 0",
+      "default": "15"
+    },
+    "ddfw_search": {
+      "type": "bool",
+      "description": "use ddfw local search instead of CDCL",
+      "default": "false"
+    },
+    "dimacs.core": {
+      "type": "bool",
+      "description": "extract core from DIMACS benchmarks",
+      "default": "false"
+    },
+    "drat.activity": {
+      "type": "bool",
+      "description": "dump variable activities",
+      "default": "false"
+    },
+    "drat.binary": {
+      "type": "bool",
+      "description": "use Binary DRAT output format",
+      "default": "false"
+    },
+    "drat.check_sat": {
+      "type": "bool",
+      "description": "build up internal trace, check satisfying model",
+      "default": "false"
+    },
+    "drat.check_unsat": {
+      "type": "bool",
+      "description": "build up internal proof and check",
+      "default": "false"
+    },
+    "drat.disable": {
+      "type": "bool",
+      "description": "override anything that enables DRAT",
+      "default": "false"
+    },
+    "drat.file": {
+      "type": "symbol",
+      "description": "file to dump DRAT proofs",
+      "default": ""
+    },
+    "dyn_sub_res": {
+      "type": "bool",
+      "description": "dynamic subsumption resolution for minimizing learned clauses",
+      "default": "true"
+    },
+    "elim_vars": {
+      "type": "bool",
+      "description": "enable variable elimination using resolution during simplification",
+      "default": "true"
+    },
+    "enable_pre_simplify": {
+      "type": "bool",
+      "description": "enable pre simplifications before the bounded search",
+      "default": "false"
+    },
+    "euf": {
+      "type": "bool",
+      "description": "enable euf solver (this feature is preliminary and not ready for general consumption)",
+      "default": "false"
+    },
+    "force_cleanup": {
+      "type": "bool",
+      "description": "force cleanup to remove tautologies and simplify clauses",
+      "default": "false"
+    },
+    "gc": {
+      "type": "symbol",
+      "description": "garbage collection strategy: psm, glue, glue_psm, dyn_psm",
+      "default": "glue_psm"
+    },
+    "gc.burst": {
+      "type": "bool",
+      "description": "perform eager garbage collection during initialization",
+      "default": "false"
+    },
+    "gc.defrag": {
+      "type": "bool",
+      "description": "defragment clauses when garbage collecting",
+      "default": "true"
+    },
+    "gc.increment": {
+      "type": "unsigned int",
+      "description": "increment to the garbage collection threshold",
+      "default": "500"
+    },
+    "gc.initial": {
+      "type": "unsigned int",
+      "description": "learned clauses garbage collection frequency",
+      "default": "20000"
+    },
+    "gc.k": {
+      "type": "unsigned int",
+      "description": "learned clauses that are inactive for k gc rounds are permanently deleted (only used in dyn_psm)",
+      "default": "7"
+    },
+    "gc.small_lbd": {
+      "type": "unsigned int",
+      "description": "learned clauses with small LBD are never deleted (only used in dyn_psm)",
+      "default": "3"
+    },
+    "inprocess.max": {
+      "type": "unsigned int",
+      "description": "maximal number of inprocessing passes",
+      "default": "4294967295"
+    },
+    "inprocess.out": {
+      "type": "symbol",
+      "description": "file to dump result of the first inprocessing step and exit",
+      "default": ""
+    },
+    "local_search": {
+      "type": "bool",
+      "description": "use local search instead of CDCL",
+      "default": "false"
+    },
+    "local_search_dbg_flips": {
+      "type": "bool",
+      "description": "write debug information for number of flips",
+      "default": "false"
+    },
+    "local_search_mode": {
+      "type": "symbol",
+      "description": "local search algorithm, either default wsat or qsat",
+      "default": "wsat"
+    },
+    "local_search_threads": {
+      "type": "unsigned int",
+      "description": "number of local search threads to find satisfiable solution",
+      "default": "0"
+    },
+    "lookahead.cube.cutoff": {
+      "type": "symbol",
+      "description": "cutoff type used to create lookahead cubes: depth, freevars, psat, adaptive_freevars, adaptive_psat",
+      "default": "depth"
+    },
+    "lookahead.cube.depth": {
+      "type": "unsigned int",
+      "description": "cut-off depth to create cubes. Used when lookahead.cube.cutoff is depth.",
+      "default": "1"
+    },
+    "lookahead.cube.fraction": {
+      "type": "double",
+      "description": "adaptive fraction to create lookahead cubes. Used when lookahead.cube.cutoff is adaptive_freevars or adaptive_psat",
+      "default": "0.4"
+    },
+    "lookahead.cube.freevars": {
+      "type": "double",
+      "description": "cube free variable fraction. Used when lookahead.cube.cutoff is freevars",
+      "default": "0.8"
+    },
+    "lookahead.cube.psat.clause_base": {
+      "type": "double",
+      "description": "clause base for PSAT cutoff",
+      "default": "2"
+    },
+    "lookahead.cube.psat.trigger": {
+      "type": "double",
+      "description": "trigger value to create lookahead cubes for PSAT cutoff. Used when lookahead.cube.cutoff is psat",
+      "default": "5"
+    },
+    "lookahead.cube.psat.var_exp": {
+      "type": "double",
+      "description": "free variable exponent for PSAT cutoff",
+      "default": "1"
+    },
+    "lookahead.delta_fraction": {
+      "type": "double",
+      "description": "number between 0 and 1, the smaller the more literals are selected for double lookahead",
+      "default": "1.0"
+    },
+    "lookahead.double": {
+      "type": "bool",
+      "description": "enable double lookahead",
+      "default": "true"
+    },
+    "lookahead.global_autarky": {
+      "type": "bool",
+      "description": "prefer to branch on variables that occur in clauses that are reduced",
+      "default": "false"
+    },
+    "lookahead.preselect": {
+      "type": "bool",
+      "description": "use pre-selection of subset of variables for branching",
+      "default": "false"
+    },
+    "lookahead.reward": {
+      "type": "symbol",
+      "description": "select lookahead heuristic: ternary, heule_schur (Heule Schur), heuleu (Heule Unit), unit, or march_cu",
+      "default": "march_cu"
+    },
+    "lookahead.use_learned": {
+      "type": "bool",
+      "description": "use learned clauses when selecting lookahead literal",
+      "default": "false"
+    },
+    "lookahead_scores": {
+      "type": "bool",
+      "description": "extract lookahead scores. A utility that can only be used from the DIMACS front-end",
+      "default": "false"
+    },
+    "lookahead_simplify": {
+      "type": "bool",
+      "description": "use lookahead solver during simplification",
+      "default": "false"
+    },
+    "lookahead_simplify.bca": {
+      "type": "bool",
+      "description": "add learned binary clauses as part of lookahead simplification",
+      "default": "true"
+    },
+    "max_conflicts": {
+      "type": "unsigned int",
+      "description": "maximum number of conflicts",
+      "default": "4294967295"
+    },
+    "max_memory": {
+      "type": "unsigned int",
+      "description": "maximum amount of memory in megabytes",
+      "default": "4294967295"
+    },
+    "minimize_lemmas": {
+      "type": "bool",
+      "description": "minimize learned clauses",
+      "default": "true"
+    },
+    "override_incremental": {
+      "type": "bool",
+      "description": "override incremental safety gaps. Enable elimination of blocked clauses and variables even if solver is reused",
+      "default": "false"
+    },
+    "pb.lemma_format": {
+      "type": "symbol",
+      "description": "generate either cardinality or pb lemmas",
+      "default": "cardinality"
+    },
+    "pb.min_arity": {
+      "type": "unsigned int",
+      "description": "minimal arity to compile pb/cardinality constraints to CNF",
+      "default": "9"
+    },
+    "pb.resolve": {
+      "type": "symbol",
+      "description": "resolution strategy for boolean algebra solver: cardinality, rounding",
+      "default": "cardinality"
+    },
+    "pb.solver": {
+      "type": "symbol",
+      "description": "method for handling Pseudo-Boolean constraints: circuit (arithmetical circuit), sorting (sorting circuit), totalizer (use totalizer encoding), binary_merge, segmented, solver (use native solver)",
+      "default": "solver"
+    },
+    "phase": {
+      "type": "symbol",
+      "description": "phase selection strategy: always_false, always_true, basic_caching, random, caching, local_search",
+      "default": "caching"
+    },
+    "phase.sticky": {
+      "type": "bool",
+      "description": "use sticky phase caching",
+      "default": "true"
+    },
+    "prob_search": {
+      "type": "bool",
+      "description": "use probsat local search instead of CDCL",
+      "default": "false"
+    },
+    "probing": {
+      "type": "bool",
+      "description": "apply failed literal detection during simplification",
+      "default": "true"
+    },
+    "probing_binary": {
+      "type": "bool",
+      "description": "probe binary clauses",
+      "default": "true"
+    },
+    "probing_cache": {
+      "type": "bool",
+      "description": "add binary literals as lemmas",
+      "default": "true"
+    },
+    "probing_cache_limit": {
+      "type": "unsigned int",
+      "description": "cache binaries unless overall memory usage exceeds cache limit",
+      "default": "1024"
+    },
+    "probing_limit": {
+      "type": "unsigned int",
+      "description": "limit to the number of probe calls",
+      "default": "5000000"
+    },
+    "propagate.prefetch": {
+      "type": "bool",
+      "description": "prefetch watch lists for assigned literals",
+      "default": "true"
+    },
+    "random_freq": {
+      "type": "double",
+      "description": "frequency of random case splits",
+      "default": "0.01"
+    },
+    "random_seed": {
+      "type": "unsigned int",
+      "description": "random seed",
+      "default": "0"
+    },
+    "reorder.activity_scale": {
+      "type": "unsigned int",
+      "description": "scaling factor for activity update",
+      "default": "100"
+    },
+    "reorder.base": {
+      "type": "unsigned int",
+      "description": "number of conflicts per random reorder",
+      "default": "4294967295"
+    },
+    "reorder.itau": {
+      "type": "double",
+      "description": "inverse temperature for softmax",
+      "default": "4.0"
+    },
+    "rephase.base": {
+      "type": "unsigned int",
+      "description": "number of conflicts per rephase",
+      "default": "1000"
+    },
+    "resolution.cls_cutoff1": {
+      "type": "unsigned int",
+      "description": "limit1 - total number of problems clauses for the second cutoff of Boolean variable elimination",
+      "default": "100000000"
+    },
+    "resolution.cls_cutoff2": {
+      "type": "unsigned int",
+      "description": "limit2 - total number of problems clauses for the second cutoff of Boolean variable elimination",
+      "default": "700000000"
+    },
+    "resolution.limit": {
+      "type": "unsigned int",
+      "description": "approx. maximum number of literals visited during variable elimination",
+      "default": "500000000"
+    },
+    "resolution.lit_cutoff_range1": {
+      "type": "unsigned int",
+      "description": "second cutoff (total number of literals) for Boolean variable elimination, for problems containing less than res_cls_cutoff1 clauses",
+      "default": "700"
+    },
+    "resolution.lit_cutoff_range2": {
+      "type": "unsigned int",
+      "description": "second cutoff (total number of literals) for Boolean variable elimination, for problems containing more than res_cls_cutoff1 and less than res_cls_cutoff2",
+      "default": "400"
+    },
+    "resolution.lit_cutoff_range3": {
+      "type": "unsigned int",
+      "description": "second cutoff (total number of literals) for Boolean variable elimination, for problems containing more than res_cls_cutoff2",
+      "default": "300"
+    },
+    "resolution.occ_cutoff": {
+      "type": "unsigned int",
+      "description": "first cutoff (on number of positive/negative occurrences) for Boolean variable elimination",
+      "default": "10"
+    },
+    "resolution.occ_cutoff_range1": {
+      "type": "unsigned int",
+      "description": "second cutoff (number of positive/negative occurrences) for Boolean variable elimination, for problems containing less than res_cls_cutoff1 clauses",
+      "default": "8"
+    },
+    "resolution.occ_cutoff_range2": {
+      "type": "unsigned int",
+      "description": "second cutoff (number of positive/negative occurrences) for Boolean variable elimination, for problems containing more than res_cls_cutoff1 and less than res_cls_cutoff2",
+      "default": "5"
+    },
+    "resolution.occ_cutoff_range3": {
+      "type": "unsigned int",
+      "description": "second cutoff (number of positive/negative occurrences) for Boolean variable elimination, for problems containing more than res_cls_cutoff2",
+      "default": "3"
+    },
+    "restart": {
+      "type": "symbol",
+      "description": "restart strategy: static, luby, ema or geometric",
+      "default": "ema"
+    },
+    "restart.emafastglue": {
+      "type": "double",
+      "description": "ema alpha factor for fast moving average",
+      "default": "0.03"
+    },
+    "restart.emaslowglue": {
+      "type": "double",
+      "description": "ema alpha factor for slow moving average",
+      "default": "1e-05"
+    },
+    "restart.factor": {
+      "type": "double",
+      "description": "restart increment factor for geometric strategy",
+      "default": "1.5"
+    },
+    "restart.fast": {
+      "type": "bool",
+      "description": "use fast restart approach only removing less active literals.",
+      "default": "true"
+    },
+    "restart.initial": {
+      "type": "unsigned int",
+      "description": "initial restart (number of conflicts)",
+      "default": "2"
+    },
+    "restart.margin": {
+      "type": "double",
+      "description": "margin between fast and slow restart factors. For ema",
+      "default": "1.1"
+    },
+    "restart.max": {
+      "type": "unsigned int",
+      "description": "maximal number of restarts.",
+      "default": "4294967295"
+    },
+    "retain_blocked_clauses": {
+      "type": "bool",
+      "description": "retain blocked clauses as lemmas",
+      "default": "true"
+    },
+    "scc": {
+      "type": "bool",
+      "description": "eliminate Boolean variables by computing strongly connected components",
+      "default": "true"
+    },
+    "scc.tr": {
+      "type": "bool",
+      "description": "apply transitive reduction, eliminate redundant binary clauses",
+      "default": "true"
+    },
+    "search.sat.conflicts": {
+      "type": "unsigned int",
+      "description": "period for solving for sat (in number of conflicts)",
+      "default": "400"
+    },
+    "search.unsat.conflicts": {
+      "type": "unsigned int",
+      "description": "period for solving for unsat (in number of conflicts)",
+      "default": "400"
+    },
+    "simplify.delay": {
+      "type": "unsigned int",
+      "description": "set initial delay of simplification by a conflict count",
+      "default": "0"
+    },
+    "smt": {
+      "type": "bool",
+      "description": "use the SAT solver based incremental SMT core",
+      "default": "false"
+    },
+    "smt.proof.check": {
+      "type": "bool",
+      "description": "check proofs on the fly during SMT search",
+      "default": "false"
+    },
+    "subsumption": {
+      "type": "bool",
+      "description": "eliminate subsumed clauses",
+      "default": "true"
+    },
+    "subsumption.limit": {
+      "type": "unsigned int",
+      "description": "approx. maximum number of literals visited during subsumption (and subsumption resolution)",
+      "default": "100000000"
+    },
+    "threads": {
+      "type": "unsigned int",
+      "description": "number of parallel threads to use",
+      "default": "1"
+    },
+    "variable_decay": {
+      "type": "unsigned int",
+      "description": "multiplier (divided by 100) for the VSIDS activity increment",
+      "default": "110"
+    }
+  },
+  "model": {
+    "compact": {
+      "type": "bool",
+      "description": "try to compact function graph (i.e., function interpretations that are lookup tables)",
+      "default": "true"
+    },
+    "completion": {
+      "type": "bool",
+      "description": "enable/disable model completion",
+      "default": "false"
+    },
+    "inline_def": {
+      "type": "bool",
+      "description": "inline local function definitions ignoring possible expansion",
+      "default": "false"
+    },
+    "partial": {
+      "type": "bool",
+      "description": "enable/disable partial function interpretations",
+      "default": "false"
+    },
+    "user_functions": {
+      "type": "bool",
+      "description": "include user defined functions in model",
+      "default": "true"
+    },
+    "v1": {
+      "type": "bool",
+      "description": "use Z3 version 1.x pretty printer",
+      "default": "false"
+    },
+    "v2": {
+      "type": "bool",
+      "description": "use Z3 version 2.x (x <= 16) pretty printer",
+      "default": "false"
+    }
+  },
+  "solver": {
+    "description": "solver parameters",
+    "axioms2files": {
+      "type": "bool",
+      "description": "print negated theory axioms to separate files during search",
+      "default": "false"
+    },
+    "cancel_backup_file": {
+      "type": "symbol",
+      "description": "file to save partial search state if search is canceled",
+      "default": ""
+    },
+    "instantiations2console": {
+      "type": "bool",
+      "description": "print quantifier instantiations to the console",
+      "default": "false"
+    },
+    "lemmas2console": {
+      "type": "bool",
+      "description": "print lemmas during search",
+      "default": "false"
+    },
+    "proof.check": {
+      "type": "bool",
+      "description": "check proof logs",
+      "default": "true"
+    },
+    "proof.check_rup": {
+      "type": "bool",
+      "description": "check proof RUP inference in proof logs",
+      "default": "true"
+    },
+    "proof.log": {
+      "type": "symbol",
+      "description": "log clause proof trail into a file",
+      "default": ""
+    },
+    "proof.save": {
+      "type": "bool",
+      "description": "save proof log into a proof object that can be extracted using (get-proof)",
+      "default": "false"
+    },
+    "proof.trim": {
+      "type": "bool",
+      "description": "trim and save proof into a proof object that an be extracted using (get-proof)",
+      "default": "false"
+    },
+    "slice": {
+      "type": "bool",
+      "description": "use slice solver that filters assertions to use symbols occuring in @query formulas",
+      "default": "false"
+    },
+    "smtlib2_log": {
+      "type": "symbol",
+      "description": "file to save solver interaction",
+      "default": ""
+    },
+    "timeout": {
+      "type": "unsigned int",
+      "description": "timeout on the solver object; overwrites a global timeout",
+      "default": "4294967295"
+    }
+  },
+  "lp": {
+    "description": "linear programming parameters",
+    "dio": {
+      "type": "bool",
+      "description": "use Diophantine equalities",
+      "default": "true"
+    },
+    "dio_branching_period": {
+      "type": "unsigned int",
+      "description": "Period of calling branching on undef in Diophantine handler",
+      "default": "100"
+    },
+    "dio_calls_period": {
+      "type": "unsigned int",
+      "description": "Period of calling the Diophantine handler in the final_check()",
+      "default": "1"
+    },
+    "dio_cuts_enable_gomory": {
+      "type": "bool",
+      "description": "enable Gomory cuts together with Diophantine cuts, only relevant when dioph_eq is true",
+      "default": "false"
+    },
+    "dio_cuts_enable_hnf": {
+      "type": "bool",
+      "description": "enable hnf cuts together with Diophantine cuts, only relevant when dioph_eq is true",
+      "default": "true"
+    },
+    "dio_ignore_big_nums": {
+      "type": "bool",
+      "description": "Ignore the terms with big numbers in the Diophantine handler, only relevant when dioph_eq is true",
+      "default": "true"
+    },
+    "dio_run_gcd": {
+      "type": "bool",
+      "description": "Run the GCD heuristic if dio is on, if dio is disabled the option is not used",
+      "default": "false"
+    }
+  },
+  "opt": {
+    "description": "optimization parameters",
+    "dump_benchmarks": {
+      "type": "bool",
+      "description": "dump benchmarks for profiling",
+      "default": "false"
+    },
+    "dump_models": {
+      "type": "bool",
+      "description": "display intermediary models to stdout",
+      "default": "false"
+    },
+    "elim_01": {
+      "type": "bool",
+      "description": "eliminate 01 variables",
+      "default": "true"
+    },
+    "enable_core_rotate": {
+      "type": "bool",
+      "description": "enable core rotation to both sample cores and correction sets",
+      "default": "false"
+    },
+    "enable_lns": {
+      "type": "bool",
+      "description": "enable LNS during weighted maxsat",
+      "default": "false"
+    },
+    "enable_sat": {
+      "type": "bool",
+      "description": "enable the new SAT core for propositional constraints",
+      "default": "true"
+    },
+    "enable_sls": {
+      "type": "bool",
+      "description": "enable SLS tuning during weighted maxsat",
+      "default": "false"
+    },
+    "incremental": {
+      "type": "bool",
+      "description": "set incremental mode. It disables pre-processing and enables adding constraints in model event handler",
+      "default": "false"
+    },
+    "lns_conflicts": {
+      "type": "unsigned int",
+      "description": "initial conflict count for LNS search",
+      "default": "1000"
+    },
+    "maxlex.enable": {
+      "type": "bool",
+      "description": "enable maxlex heuristic for lexicographic MaxSAT problems",
+      "default": "true"
+    },
+    "maxres.add_upper_bound_block": {
+      "type": "bool",
+      "description": "restrict upper bound with constraint",
+      "default": "false"
+    },
+    "maxres.hill_climb": {
+      "type": "bool",
+      "description": "give preference for large weight cores",
+      "default": "true"
+    },
+    "maxres.max_core_size": {
+      "type": "unsigned int",
+      "description": "break batch of generated cores if size reaches this number",
+      "default": "3"
+    },
+    "maxres.max_correction_set_size": {
+      "type": "unsigned int",
+      "description": "allow generating correction set constraints up to maximal size",
+      "default": "3"
+    },
+    "maxres.max_num_cores": {
+      "type": "unsigned int",
+      "description": "maximal number of cores per round",
+      "default": "200"
+    },
+    "maxres.maximize_assignment": {
+      "type": "bool",
+      "description": "find an MSS/MCS to improve current assignment",
+      "default": "false"
+    },
+    "maxres.pivot_on_correction_set": {
+      "type": "bool",
+      "description": "reduce soft constraints if the current correction set is smaller than current core",
+      "default": "true"
+    },
+    "maxres.wmax": {
+      "type": "bool",
+      "description": "use weighted theory solver to constrain upper bounds",
+      "default": "false"
+    },
+    "maxsat_engine": {
+      "type": "symbol",
+      "description": "select engine for maxsat: 'core_maxsat', 'wmax', 'maxres', 'pd-maxres', 'maxres-bin', 'rc2'",
+      "default": "maxres"
+    },
+    "optsmt_engine": {
+      "type": "symbol",
+      "description": "select optimization engine: 'basic', 'symba'",
+      "default": "basic"
+    },
+    "pb.compile_equality": {
+      "type": "bool",
+      "description": "compile arithmetical equalities into pseudo-Boolean equality (instead of two inequalites)",
+      "default": "false"
+    },
+    "pp.neat": {
+      "type": "bool",
+      "description": "use neat (as opposed to less readable, but faster) pretty printer when displaying context",
+      "default": "true"
+    },
+    "pp.wcnf": {
+      "type": "bool",
+      "description": "print maxsat benchmark into wcnf format",
+      "default": "false"
+    },
+    "priority": {
+      "type": "symbol",
+      "description": "select how to prioritize objectives: 'lex' (lexicographic), 'pareto', 'box'",
+      "default": "lex"
+    },
+    "rc2.totalizer": {
+      "type": "bool",
+      "description": "use totalizer for rc2 encoding",
+      "default": "true"
+    },
+    "rlimit": {
+      "type": "unsigned int",
+      "description": "resource limit (0 means no limit)",
+      "default": "0"
+    },
+    "solution_prefix": {
+      "type": "symbol",
+      "description": "path prefix to dump intermediary, but non-optimal, solutions",
+      "default": ""
+    },
+    "timeout": {
+      "type": "unsigned int",
+      "description": "timeout (in milliseconds) (UINT_MAX and 0 mean no timeout)",
+      "default": "4294967295"
+    }
+  },
+  "parallel": {
+    "description": "parameters for parallel solver",
+    "conquer.backtrack_frequency": {
+      "type": "unsigned int",
+      "description": "frequency to apply core minimization during conquer",
+      "default": "10"
+    },
+    "conquer.batch_size": {
+      "type": "unsigned int",
+      "description": "number of cubes to batch together for fast conquer",
+      "default": "100"
+    },
+    "conquer.delay": {
+      "type": "unsigned int",
+      "description": "delay of cubes until applying conquer",
+      "default": "10"
+    },
+    "conquer.restart.max": {
+      "type": "unsigned int",
+      "description": "maximal number of restarts during conquer phase",
+      "default": "5"
+    },
+    "enable": {
+      "type": "bool",
+      "description": "enable parallel solver by default on selected tactics (for QF_BV)",
+      "default": "false"
+    },
+    "simplify.exp": {
+      "type": "double",
+      "description": "restart and inprocess max is multiplied by simplify.exp ^ depth",
+      "default": "1"
+    },
+    "simplify.inprocess.max": {
+      "type": "unsigned int",
+      "description": "maximal number of inprocessing steps during simplification",
+      "default": "2"
+    },
+    "simplify.max_conflicts": {
+      "type": "unsigned int",
+      "description": "maximal number of conflicts during simplification phase",
+      "default": "4294967295"
+    },
+    "simplify.restart.max": {
+      "type": "unsigned int",
+      "description": "maximal number of restarts during simplification phase",
+      "default": "5000"
+    },
+    "threads.max": {
+      "type": "unsigned int",
+      "description": "caps maximal number of threads below the number of processors",
+      "default": "10000"
+    }
+  },
+  "nnf": {
+    "description": "negation normal form",
+    "ignore_labels": {
+      "type": "bool",
+      "description": "remove/ignore labels in the input formula, this option is ignored if proofs are enabled",
+      "default": "false"
+    },
+    "max_memory": {
+      "type": "unsigned int",
+      "description": "maximum amount of memory in megabytes",
+      "default": "4294967295"
+    },
+    "mode": {
+      "type": "symbol",
+      "description": "NNF translation mode: skolem (skolem normal form), quantifiers (skolem normal form + quantifiers in NNF), full",
+      "default": "skolem"
+    },
+    "sk_hack": {
+      "type": "bool",
+      "description": "hack for VCC",
+      "default": "false"
+    }
+  },
+  "algebraic": {
+    "description": "real algebraic number package. Non-default parameter settings are not supported",
+    "factor": {
+      "type": "bool",
+      "description": "use polynomial factorization to simplify polynomials representing algebraic numbers",
+      "default": "true"
+    },
+    "factor_max_prime": {
+      "type": "unsigned int",
+      "description": "parameter for the polynomial factorization procedure in the algebraic number module. Z3 polynomial factorization is composed of three steps: factorization in GF(p), lifting and search. This parameter limits the maximum prime number p to be used in the first step",
+      "default": "31"
+    },
+    "factor_num_primes": {
+      "type": "unsigned int",
+      "description": "parameter for the polynomial factorization procedure in the algebraic number module. Z3 polynomial factorization is composed of three steps: factorization in GF(p), lifting and search. The search space may be reduced by factoring the polynomial in different GF(p)'s. This parameter specify the maximum number of finite factorizations to be considered, before lifting and searching",
+      "default": "1"
+    },
+    "factor_search_size": {
+      "type": "unsigned int",
+      "description": "parameter for the polynomial factorization procedure in the algebraic number module. Z3 polynomial factorization is composed of three steps: factorization in GF(p), lifting and search. This parameter can be used to limit the search space",
+      "default": "5000"
+    },
+    "min_mag": {
+      "type": "unsigned int",
+      "description": "Z3 represents algebraic numbers using a (square-free) polynomial p and an isolating interval (which contains one and only one root of p). This interval may be refined during the computations. This parameter specifies whether to cache the value of a refined interval or not. It says the minimal size of an interval for caching purposes is 1/2^16",
+      "default": "16"
+    },
+    "zero_accuracy": {
+      "type": "unsigned int",
+      "description": "one of the most time-consuming operations in the real algebraic number module is determining the sign of a polynomial evaluated at a sample point with non-rational algebraic number values. Let k be the value of this option. If k is 0, Z3 uses precise computation. Otherwise, the result of a polynomial evaluation is considered to be 0 if Z3 can show it is inside the interval (-1/2^k, 1/2^k)",
+      "default": "0"
+    }
+  },
+  "combined_solver": {
+    "description": "combines two solvers: non-incremental (solver1) and incremental (solver2)",
+    "ignore_solver1": {
+      "type": "bool",
+      "description": "if true, solver 2 is always used",
+      "default": "false"
+    },
+    "solver2_timeout": {
+      "type": "unsigned int",
+      "description": "fallback to solver 1 after timeout even when in incremental model",
+      "default": "4294967295"
+    },
+    "solver2_unknown": {
+      "type": "unsigned int",
+      "description": "what should be done when solver 2 returns unknown: 0 - just return unknown, 1 - execute solver 1 if quantifier free problem, 2 - execute solver 1",
+      "default": "1"
+    }
+  },
+  "rcf": {
+    "description": "real closed fields",
+    "clean_denominators": {
+      "type": "bool",
+      "description": "clean denominators before root isolation",
+      "default": "true"
+    },
+    "inf_precision": {
+      "type": "unsigned int",
+      "description": "a value k that is the initial interval size (i.e., (0, 1/2^l)) used as an approximation for infinitesimal values",
+      "default": "24"
+    },
+    "initial_precision": {
+      "type": "unsigned int",
+      "description": "a value k that is the initial interval size (as 1/2^k) when creating transcendentals and approximated division",
+      "default": "24"
+    },
+    "lazy_algebraic_normalization": {
+      "type": "bool",
+      "description": "during sturm-seq and square-free polynomial computations, only normalize algebraic polynomial expressions when the defining polynomial is monic",
+      "default": "true"
+    },
+    "max_precision": {
+      "type": "unsigned int",
+      "description": "during sign determination we switch from interval arithmetic to complete methods when the interval size is less than 1/2^k, where k is the max_precision",
+      "default": "128"
+    },
+    "use_prem": {
+      "type": "bool",
+      "description": "use pseudo-remainder instead of remainder when computing GCDs and Sturm-Tarski sequences",
+      "default": "true"
+    }
+  },
+  "model_evaluator": {
+    "array_as_stores": {
+      "type": "bool",
+      "description": "return array as a set of stores",
+      "default": "true"
+    },
+    "array_equalities": {
+      "type": "bool",
+      "description": "evaluate array equalities",
+      "default": "true"
+    },
+    "completion": {
+      "type": "bool",
+      "description": "assigns an interptetation to symbols that do not have one in the current model, when evaluating expressions in the current model",
+      "default": "false"
+    },
+    "max_memory": {
+      "type": "unsigned int",
+      "description": "maximum amount of memory in megabytes",
+      "default": "4294967295"
+    },
+    "max_steps": {
+      "type": "unsigned int",
+      "description": "maximum number of steps",
+      "default": "4294967295"
+    }
+  },
+  "ackermannization": {
+    "description": "solving UF via ackermannization",
+    "eager": {
+      "type": "bool",
+      "description": "eagerly instantiate all congruence rules",
+      "default": "true"
+    },
+    "inc_sat_backend": {
+      "type": "bool",
+      "description": "use incremental SAT",
+      "default": "false"
+    },
+    "sat_backend": {
+      "type": "bool",
+      "description": "use SAT rather than SMT in qfufbv_ackr_tactic",
+      "default": "false"
+    }
+  },
+  "nlsat": {
+    "description": "nonlinear solver",
+    "add_all_coeffs": {
+      "type": "bool",
+      "description": "add all polynomial coefficients during projection.",
+      "default": "false"
+    },
+    "cell_sample": {
+      "type": "bool",
+      "description": "cell sample projection",
+      "default": "true"
+    },
+    "check_lemmas": {
+      "type": "bool",
+      "description": "check lemmas on the fly using an independent nlsat solver",
+      "default": "false"
+    },
+    "dump_mathematica": {
+      "type": "bool",
+      "description": "display lemmas as matematica",
+      "default": "false"
+    },
+    "factor": {
+      "type": "bool",
+      "description": "factor polynomials produced during conflict resolution.",
+      "default": "true"
+    },
+    "inline_vars": {
+      "type": "bool",
+      "description": "inline variables that can be isolated from equations (not supported in incremental mode)",
+      "default": "false"
+    },
+    "known_sat_assignment_file_name": {
+      "type": "string",
+      "description": "the file name of a known solution: used for debugging only",
+      "default": ""
+    },
+    "lazy": {
+      "type": "unsigned int",
+      "description": "how lazy the solver is.",
+      "default": "0"
+    },
+    "log_lemmas": {
+      "type": "bool",
+      "description": "display lemmas as self-contained SMT formulas",
+      "default": "false"
+    },
+    "max_conflicts": {
+      "type": "unsigned int",
+      "description": "maximum number of conflicts.",
+      "default": "4294967295"
+    },
+    "max_memory": {
+      "type": "unsigned int",
+      "description": "maximum amount of memory in megabytes",
+      "default": "4294967295"
+    },
+    "minimize_conflicts": {
+      "type": "bool",
+      "description": "minimize conflicts",
+      "default": "false"
+    },
+    "randomize": {
+      "type": "bool",
+      "description": "randomize selection of a witness in nlsat.",
+      "default": "true"
+    },
+    "reorder": {
+      "type": "bool",
+      "description": "reorder variables.",
+      "default": "true"
+    },
+    "seed": {
+      "type": "unsigned int",
+      "description": "random seed.",
+      "default": "0"
+    },
+    "shuffle_vars": {
+      "type": "bool",
+      "description": "use a random variable order.",
+      "default": "false"
+    },
+    "simple_check": {
+      "type": "bool",
+      "description": "precheck polynomials using variables sign",
+      "default": "false"
+    },
+    "simplify_conflicts": {
+      "type": "bool",
+      "description": "simplify conflicts using equalities before resolving them in nlsat solver.",
+      "default": "true"
+    },
+    "variable_ordering_strategy": {
+      "type": "unsigned int",
+      "description": "Variable Ordering Strategy, 0 for none, 1 for BROWN, 2 for TRIANGULAR, 3 for ONLYPOLY",
+      "default": "0"
+    }
+  },
+  "sls": {
+    "description": "Stochastic Local Search Solver (invoked by sls-qfbv and sls-smt tactics or enabled by smt.sls.enable=true)",
+    "arith_allow_plateau": {
+      "type": "bool",
+      "description": "allow plateau moves during NIRA solving",
+      "default": "false"
+    },
+    "arith_use_clausal_lookahead": {
+      "type": "bool",
+      "description": "use clause based lookahead for NIRA",
+      "default": "false"
+    },
+    "arith_use_lookahead": {
+      "type": "bool",
+      "description": "use lookahead solver for NIRA",
+      "default": "true"
+    },
+    "bv_allow_rotation": {
+      "type": "bool",
+      "description": "allow model rotation when repairing literal assignment",
+      "default": "true"
+    },
+    "bv_use_lookahead": {
+      "type": "bool",
+      "description": "use lookahead solver for BV",
+      "default": "true"
+    },
+    "bv_use_top_level_assertions": {
+      "type": "bool",
+      "description": "use top-level assertions for BV lookahead solver",
+      "default": "true"
+    },
+    "dt_axiomatic": {
+      "type": "bool",
+      "description": "use axiomatic mode or model reduction for datatype solver",
+      "default": "true"
+    },
+    "early_prune": {
+      "type": "bool",
+      "description": "use early pruning for score prediction",
+      "default": "true"
+    },
+    "max_memory": {
+      "type": "unsigned int",
+      "description": "maximum amount of memory in megabytes",
+      "default": "4294967295"
+    },
+    "max_repairs": {
+      "type": "unsigned int",
+      "description": "maximum number of repairs before restart",
+      "default": "1000"
+    },
+    "max_restarts": {
+      "type": "unsigned int",
+      "description": "maximum number of restarts",
+      "default": "4294967295"
+    },
+    "paws_init": {
+      "type": "unsigned int",
+      "description": "initial/minimum assertion weights",
+      "default": "40"
+    },
+    "paws_sp": {
+      "type": "unsigned int",
+      "description": "smooth assertion weights with probability paws_sp / 1024",
+      "default": "52"
+    },
+    "random_offset": {
+      "type": "bool",
+      "description": "use random offset for candidate evaluation",
+      "default": "true"
+    },
+    "random_seed": {
+      "type": "unsigned int",
+      "description": "random seed",
+      "default": "0"
+    },
+    "rescore": {
+      "type": "bool",
+      "description": "rescore/normalize top-level score every base restart interval",
+      "default": "true"
+    },
+    "restart_base": {
+      "type": "unsigned int",
+      "description": "base restart interval given by moves per run",
+      "default": "100"
+    },
+    "restart_init": {
+      "type": "bool",
+      "description": "initialize to 0 or random value (= 1) after restart",
+      "default": "false"
+    },
+    "scale_unsat": {
+      "type": "double",
+      "description": "scale score of unsat expressions by this factor",
+      "default": "0.5"
+    },
+    "str_update_strategy": {
+      "type": "unsigned int",
+      "description": "string update candidate selection: 0 - single character based update, 1 - subsequence based update, 2 - combined",
+      "default": "2"
+    },
+    "track_unsat": {
+      "type": "bool",
+      "description": "keep a list of unsat assertions as done in SAT - currently disabled internally",
+      "default": "false"
+    },
+    "vns_mc": {
+      "type": "unsigned int",
+      "description": "in local minima, try Monte Carlo sampling vns_mc many 2-bit-flips per bit",
+      "default": "0"
+    },
+    "vns_repick": {
+      "type": "bool",
+      "description": "in local minima, try picking a different assertion (only for walksat)",
+      "default": "false"
+    },
+    "walksat": {
+      "type": "bool",
+      "description": "use walksat assertion selection (instead of gsat)",
+      "default": "true"
+    },
+    "walksat_repick": {
+      "type": "bool",
+      "description": "repick assertion if randomizing in local minima",
+      "default": "true"
+    },
+    "walksat_ucb": {
+      "type": "bool",
+      "description": "use bandit heuristic for walksat assertion selection (instead of random)",
+      "default": "true"
+    },
+    "walksat_ucb_constant": {
+      "type": "double",
+      "description": "the ucb constant c in the term score + c * f(touched)",
+      "default": "20.0"
+    },
+    "walksat_ucb_forget": {
+      "type": "double",
+      "description": "scale touched by this factor every base restart interval",
+      "default": "1.0"
+    },
+    "walksat_ucb_init": {
+      "type": "bool",
+      "description": "initialize total ucb touched to formula size",
+      "default": "false"
+    },
+    "walksat_ucb_noise": {
+      "type": "double",
+      "description": "add noise 0 <= 256 * ucb_noise to ucb score for assertion selection",
+      "default": "0.0002"
+    },
+    "wp": {
+      "type": "unsigned int",
+      "description": "random walk with probability wp / 1024",
+      "default": "100"
+    }
+  },
+  "rewriter": {
+    "description": "new formula simplification module used in the tactic framework, and new solvers",
+    "algebraic_number_evaluator": {
+      "type": "bool",
+      "description": "simplify/evaluate expressions containing (algebraic) irrational numbers.",
+      "default": "true"
+    },
+    "arith_ineq_lhs": {
+      "type": "bool",
+      "description": "rewrite inequalities so that right-hand-side is a constant.",
+      "default": "false"
+    },
+    "arith_lhs": {
+      "type": "bool",
+      "description": "all monomials are moved to the left-hand-side, and the right-hand-side is just a constant.",
+      "default": "false"
+    },
+    "bit2bool": {
+      "type": "bool",
+      "description": "try to convert bit-vector terms of size 1 into Boolean terms",
+      "default": "true"
+    },
+    "blast_distinct": {
+      "type": "bool",
+      "description": "expand a distinct predicate into a quadratic number of disequalities",
+      "default": "false"
+    },
+    "blast_distinct_threshold": {
+      "type": "unsigned int",
+      "description": "when blast_distinct is true, only distinct expressions with less than this number of arguments are blasted",
+      "default": "4294967295"
+    },
+    "blast_eq_value": {
+      "type": "bool",
+      "description": "blast (some) Bit-vector equalities into bits",
+      "default": "false"
+    },
+    "blast_select_store": {
+      "type": "bool",
+      "description": "eagerly replace all (select (store ..) ..) term by an if-then-else term",
+      "default": "false"
+    },
+    "bv_extract_prop": {
+      "type": "bool",
+      "description": "attempt to partially propagate extraction inwards",
+      "default": "false"
+    },
+    "bv_ineq_consistency_test_max": {
+      "type": "unsigned int",
+      "description": "max size of conjunctions on which to perform consistency test based on inequalities on bitvectors.",
+      "default": "0"
+    },
+    "bv_ite2id": {
+      "type": "bool",
+      "description": "rewrite ite that can be simplified to identity",
+      "default": "false"
+    },
+    "bv_le2extract": {
+      "type": "bool",
+      "description": "disassemble bvule to extract",
+      "default": "true"
+    },
+    "bv_le_extra": {
+      "type": "bool",
+      "description": "additional bu_(u/s)le simplifications",
+      "default": "false"
+    },
+    "bv_not_simpl": {
+      "type": "bool",
+      "description": "apply simplifications for bvnot",
+      "default": "false"
+    },
+    "bv_sort_ac": {
+      "type": "bool",
+      "description": "sort the arguments of all AC operators",
+      "default": "false"
+    },
+    "cache_all": {
+      "type": "bool",
+      "description": "cache all intermediate results.",
+      "default": "false"
+    },
+    "coalesce_chars": {
+      "type": "bool",
+      "description": "coalesce characters into strings",
+      "default": "true"
+    },
+    "div0_ackermann_limit": {
+      "type": "unsigned int",
+      "description": "a bound for number of congruence Ackermann lemmas for div0 modelling",
+      "default": "1000"
+    },
+    "elim_and": {
+      "type": "bool",
+      "description": "conjunctions are rewritten using negation and disjunctions",
+      "default": "false"
+    },
+    "elim_ite": {
+      "type": "bool",
+      "description": "eliminate ite in favor of and/or",
+      "default": "true"
+    },
+    "elim_rem": {
+      "type": "bool",
+      "description": "replace (rem x y) with (ite (>= y 0) (mod x y) (- (mod x y))).",
+      "default": "false"
+    },
+    "elim_sign_ext": {
+      "type": "bool",
+      "description": "expand sign-ext operator using concat and extract",
+      "default": "true"
+    },
+    "elim_to_real": {
+      "type": "bool",
+      "description": "eliminate to_real from arithmetic predicates that contain only integers.",
+      "default": "false"
+    },
+    "enable_der": {
+      "type": "bool",
+      "description": "enable destructive equality resolution to quantifiers.",
+      "default": "true"
+    },
+    "eq2ineq": {
+      "type": "bool",
+      "description": "expand equalities into two inequalities",
+      "default": "false"
+    },
+    "expand_nested_stores": {
+      "type": "bool",
+      "description": "replace nested stores by a lambda expression",
+      "default": "false"
+    },
+    "expand_power": {
+      "type": "bool",
+      "description": "expand (^ t k) into (* t ... t) if  1 < k <= max_degree.",
+      "default": "false"
+    },
+    "expand_select_ite": {
+      "type": "bool",
+      "description": "expand select over ite expressions",
+      "default": "false"
+    },
+    "expand_select_store": {
+      "type": "bool",
+      "description": "conservatively replace a (select (store ...) ...) term by an if-then-else term",
+      "default": "false"
+    },
+    "expand_store_eq": {
+      "type": "bool",
+      "description": "reduce (store ...) = (store ...) with a common base into selects",
+      "default": "false"
+    },
+    "expand_tan": {
+      "type": "bool",
+      "description": "replace (tan x) with (/ (sin x) (cos x)).",
+      "default": "false"
+    },
+    "flat": {
+      "type": "bool",
+      "description": "create nary applications for +,*,bvadd,bvmul,bvand,bvor,bvxor",
+      "default": "true"
+    },
+    "flat_and_or": {
+      "type": "bool",
+      "description": "create nary applications for and,or",
+      "default": "true"
+    },
+    "gcd_rounding": {
+      "type": "bool",
+      "description": "use gcd rounding on integer arithmetic atoms.",
+      "default": "false"
+    },
+    "hi_div0": {
+      "type": "bool",
+      "description": "use the 'hardware interpretation' for division by zero (for bit-vector terms)",
+      "default": "true"
+    },
+    "hi_fp_unspecified": {
+      "type": "bool",
+      "description": "use the 'hardware interpretation' for unspecified values in fp.min, fp.max, fp.to_ubv, fp.to_sbv, and fp.to_real",
+      "default": "false"
+    },
+    "hoist_ite": {
+      "type": "bool",
+      "description": "hoist shared summands under ite expressions",
+      "default": "false"
+    },
+    "hoist_mul": {
+      "type": "bool",
+      "description": "hoist multiplication over summation to minimize number of multiplications",
+      "default": "false"
+    },
+    "ignore_patterns_on_ground_qbody": {
+      "type": "bool",
+      "description": "ignores patterns on quantifiers that don't mention their bound variables.",
+      "default": "true"
+    },
+    "ite_extra_rules": {
+      "type": "bool",
+      "description": "extra ite simplifications, these additional simplifications may reduce size locally but increase globally",
+      "default": "true"
+    },
+    "local_ctx": {
+      "type": "bool",
+      "description": "perform local (i.e., cheap) context simplifications",
+      "default": "false"
+    },
+    "local_ctx_limit": {
+      "type": "unsigned int",
+      "description": "limit for applying local context simplifier",
+      "default": "4294967295"
+    },
+    "max_degree": {
+      "type": "unsigned int",
+      "description": "max degree of algebraic numbers (and power operators) processed by simplifier.",
+      "default": "64"
+    },
+    "max_memory": {
+      "type": "unsigned int",
+      "description": "maximum amount of memory in megabytes",
+      "default": "4294967295"
+    },
+    "max_steps": {
+      "type": "unsigned int",
+      "description": "maximum number of steps",
+      "default": "4294967295"
+    },
+    "mul2concat": {
+      "type": "bool",
+      "description": "replace multiplication by a power of two into a concatenation",
+      "default": "false"
+    },
+    "mul_to_power": {
+      "type": "bool",
+      "description": "collpase (* t ... t) into (^ t k), it is ignored if expand_power is true.",
+      "default": "false"
+    },
+    "pull_cheap_ite": {
+      "type": "bool",
+      "description": "pull if-then-else terms when cheap.",
+      "default": "false"
+    },
+    "push_ite_arith": {
+      "type": "bool",
+      "description": "push if-then-else over arithmetic terms.",
+      "default": "false"
+    },
+    "push_ite_bv": {
+      "type": "bool",
+      "description": "push if-then-else over bit-vector terms.",
+      "default": "false"
+    },
+    "push_to_real": {
+      "type": "bool",
+      "description": "distribute to_real over * and +.",
+      "default": "true"
+    },
+    "rewrite_patterns": {
+      "type": "bool",
+      "description": "rewrite patterns.",
+      "default": "false"
+    },
+    "som": {
+      "type": "bool",
+      "description": "put polynomials in sum-of-monomials form",
+      "default": "false"
+    },
+    "som_blowup": {
+      "type": "unsigned int",
+      "description": "maximum increase of monomials generated when putting a polynomial in sum-of-monomials normal form",
+      "default": "10"
+    },
+    "sort_disjunctions": {
+      "type": "bool",
+      "description": "sort subterms in disjunctions",
+      "default": "true"
+    },
+    "sort_store": {
+      "type": "bool",
+      "description": "sort nested stores when the indices are known to be different",
+      "default": "false"
+    },
+    "sort_sums": {
+      "type": "bool",
+      "description": "sort the arguments of + application.",
+      "default": "false"
+    },
+    "split_concat_eq": {
+      "type": "bool",
+      "description": "split equalities of the form (= (concat t1 t2) t3)",
+      "default": "false"
+    }
+  },
+  "fp": {
+    "description": "fixedpoint parameters",
+    "bmc.linear_unrolling_depth": {
+      "type": "unsigned int",
+      "description": "Maximal level to explore",
+      "default": "4294967295"
+    },
+    "datalog.all_or_nothing_deltas": {
+      "type": "bool",
+      "description": "compile rules so that it is enough for the delta relation in union and widening operations to determine only whether the updated relation was modified or not",
+      "default": "false"
+    },
+    "datalog.check_relation": {
+      "type": "symbol",
+      "description": "name of default relation to check. operations on the default relation will be verified using SMT solving",
+      "default": "null"
+    },
+    "datalog.compile_with_widening": {
+      "type": "bool",
+      "description": "widening will be used to compile recursive rules",
+      "default": "false"
+    },
+    "datalog.dbg_fpr_nonempty_relation_signature": {
+      "type": "bool",
+      "description": "if true, finite_product_relation will attempt to avoid creating inner relation with empty signature by putting in half of the table columns, if it would have been empty otherwise",
+      "default": "false"
+    },
+    "datalog.default_relation": {
+      "type": "symbol",
+      "description": "default relation implementation: external_relation, pentagon",
+      "default": "pentagon"
+    },
+    "datalog.default_table": {
+      "type": "symbol",
+      "description": "default table implementation: sparse, hashtable, bitvector, interval",
+      "default": "sparse"
+    },
+    "datalog.default_table_checked": {
+      "type": "bool",
+      "description": "if true, the default table will be default_table inside a wrapper that checks that its results are the same as of default_table_checker table",
+      "default": "false"
+    },
+    "datalog.default_table_checker": {
+      "type": "symbol",
+      "description": "see default_table_checked",
+      "default": "null"
+    },
+    "datalog.explanations_on_relation_level": {
+      "type": "bool",
+      "description": "if true, explanations are generated as history of each relation, rather than per fact (generate_explanations must be set to true for this option to have any effect)",
+      "default": "false"
+    },
+    "datalog.generate_explanations": {
+      "type": "bool",
+      "description": "produce explanations for produced facts when using the datalog engine",
+      "default": "false"
+    },
+    "datalog.initial_restart_timeout": {
+      "type": "unsigned int",
+      "description": "length of saturation run before the first restart (in ms), zero means no restarts",
+      "default": "0"
+    },
+    "datalog.magic_sets_for_queries": {
+      "type": "bool",
+      "description": "magic set transformation will be used for queries",
+      "default": "false"
+    },
+    "datalog.output_profile": {
+      "type": "bool",
+      "description": "determines whether profile information should be output when outputting Datalog rules or instructions",
+      "default": "false"
+    },
+    "datalog.print.tuples": {
+      "type": "bool",
+      "description": "determines whether tuples for output predicates should be output",
+      "default": "true"
+    },
+    "datalog.profile_timeout_milliseconds": {
+      "type": "unsigned int",
+      "description": "instructions and rules that took less than the threshold will not be printed when printed the instruction/rule list",
+      "default": "0"
+    },
+    "datalog.similarity_compressor": {
+      "type": "bool",
+      "description": "rules that differ only in values of constants will be merged into a single rule",
+      "default": "true"
+    },
+    "datalog.similarity_compressor_threshold": {
+      "type": "unsigned int",
+      "description": "if similarity_compressor is on, this value determines how many similar rules there must be in order for them to be merged",
+      "default": "11"
+    },
+    "datalog.subsumption": {
+      "type": "bool",
+      "description": "if true, removes/filters predicates with total transitions",
+      "default": "true"
+    },
+    "datalog.timeout": {
+      "type": "unsigned int",
+      "description": "Time limit used for saturation",
+      "default": "0"
+    },
+    "datalog.unbound_compressor": {
+      "type": "bool",
+      "description": "auxiliary relations will be introduced to avoid unbound variables in rule heads",
+      "default": "true"
+    },
+    "datalog.use_map_names": {
+      "type": "bool",
+      "description": "use names from map files when displaying tuples",
+      "default": "true"
+    },
+    "engine": {
+      "type": "symbol",
+      "description": "Select: auto-config, datalog, bmc, spacer",
+      "default": "auto-config"
+    },
+    "generate_proof_trace": {
+      "type": "bool",
+      "description": "trace for 'sat' answer as proof object",
+      "default": "false"
+    },
+    "print_aig": {
+      "type": "symbol",
+      "description": "Dump clauses in AIG text format (AAG) to the given file name",
+      "default": ""
+    },
+    "print_answer": {
+      "type": "bool",
+      "description": "print answer instance(s) to query",
+      "default": "false"
+    },
+    "print_boogie_certificate": {
+      "type": "bool",
+      "description": "print certificate for reachability or non-reachability using a format understood by Boogie",
+      "default": "false"
+    },
+    "print_certificate": {
+      "type": "bool",
+      "description": "print certificate for reachability or non-reachability",
+      "default": "false"
+    },
+    "print_fixedpoint_extensions": {
+      "type": "bool",
+      "description": "use SMT-LIB2 fixedpoint extensions, instead of pure SMT2, when printing rules",
+      "default": "true"
+    },
+    "print_low_level_smt2": {
+      "type": "bool",
+      "description": "use (faster) low-level SMT2 printer (the printer is scalable but the result may not be as readable)",
+      "default": "false"
+    },
+    "print_statistics": {
+      "type": "bool",
+      "description": "print statistics",
+      "default": "false"
+    },
+    "print_with_variable_declarations": {
+      "type": "bool",
+      "description": "use variable declarations when displaying rules (instead of attempting to use original names)",
+      "default": "true"
+    },
+    "spacer.arith.solver": {
+      "type": "unsigned int",
+      "description": "arithmetic solver: 0 - no solver, 1 - bellman-ford based solver (diff. logic only), 2 - simplex based solver, 3 - floyd-warshall based solver (diff. logic only) and no theory combination 4 - utvpi, 5 - infinitary lra, 6 - lra solver",
+      "default": "2"
+    },
+    "spacer.blast_term_ite_inflation": {
+      "type": "unsigned int",
+      "description": "Maximum inflation for non-Boolean ite-terms expansion: 0 (none), k (multiplicative)",
+      "default": "3"
+    },
+    "spacer.ctp": {
+      "type": "bool",
+      "description": "Enable counterexample-to-pushing",
+      "default": "true"
+    },
+    "spacer.dump_benchmarks": {
+      "type": "bool",
+      "description": "Dump SMT queries as benchmarks",
+      "default": "false"
+    },
+    "spacer.dump_threshold": {
+      "type": "double",
+      "description": "Threshold in seconds on dumping benchmarks",
+      "default": "5.0"
+    },
+    "spacer.elim_aux": {
+      "type": "bool",
+      "description": "Eliminate auxiliary variables in reachability facts",
+      "default": "true"
+    },
+    "spacer.eq_prop": {
+      "type": "bool",
+      "description": "Enable equality and bound propagation in arithmetic",
+      "default": "true"
+    },
+    "spacer.expand_bnd": {
+      "type": "bool",
+      "description": "Enable expand-bound lemma generalization",
+      "default": "false"
+    },
+    "spacer.gg.concretize": {
+      "type": "bool",
+      "description": "Enable global guidance concretize",
+      "default": "true"
+    },
+    "spacer.gg.conjecture": {
+      "type": "bool",
+      "description": "Enable global guidance conjecture",
+      "default": "true"
+    },
+    "spacer.gg.subsume": {
+      "type": "bool",
+      "description": "Enable global guidance subsume",
+      "default": "true"
+    },
+    "spacer.global": {
+      "type": "bool",
+      "description": "Enable global guidance",
+      "default": "false"
+    },
+    "spacer.gpdr": {
+      "type": "bool",
+      "description": "Use GPDR solving strategy for non-linear CHC",
+      "default": "false"
+    },
+    "spacer.gpdr.bfs": {
+      "type": "bool",
+      "description": "Use BFS exploration strategy for expanding model search",
+      "default": "true"
+    },
+    "spacer.ground_pobs": {
+      "type": "bool",
+      "description": "Ground pobs by using values from a model",
+      "default": "true"
+    },
+    "spacer.iuc": {
+      "type": "unsigned int",
+      "description": "0 = use old implementation of unsat-core-generation, 1 = use new implementation of IUC generation, 2 = use new implementation of IUC + min-cut optimization",
+      "default": "1"
+    },
+    "spacer.iuc.arith": {
+      "type": "unsigned int",
+      "description": "0 = use simple Farkas plugin, 1 = use simple Farkas plugin with constant from other partition (like old unsat-core-generation),2 = use Gaussian elimination optimization (broken), 3 = use additive IUC plugin",
+      "default": "1"
+    },
+    "spacer.iuc.debug_proof": {
+      "type": "bool",
+      "description": "prints proof used by unsat-core-learner for debugging purposes (debugging)",
+      "default": "false"
+    },
+    "spacer.iuc.old_hyp_reducer": {
+      "type": "bool",
+      "description": "use old hyp reducer instead of new implementation, for debugging only",
+      "default": "false"
+    },
+    "spacer.iuc.print_farkas_stats": {
+      "type": "bool",
+      "description": "prints for each proof how many Farkas lemmas it contains and how many of these participate in the cut (for debugging)",
+      "default": "false"
+    },
+    "spacer.iuc.split_farkas_literals": {
+      "type": "bool",
+      "description": "Split Farkas literals",
+      "default": "false"
+    },
+    "spacer.keep_proxy": {
+      "type": "bool",
+      "description": "keep proxy variables (internal parameter)",
+      "default": "true"
+    },
+    "spacer.logic": {
+      "type": "symbol",
+      "description": "SMT-LIB logic to configure internal SMT solvers",
+      "default": ""
+    },
+    "spacer.max_level": {
+      "type": "unsigned int",
+      "description": "Maximum level to explore",
+      "default": "4294967295"
+    },
+    "spacer.max_num_contexts": {
+      "type": "unsigned int",
+      "description": "maximal number of contexts to create",
+      "default": "500"
+    },
+    "spacer.mbqi": {
+      "type": "bool",
+      "description": "Enable mbqi",
+      "default": "true"
+    },
+    "spacer.min_level": {
+      "type": "unsigned int",
+      "description": "Minimal level to explore",
+      "default": "0"
+    },
+    "spacer.native_mbp": {
+      "type": "bool",
+      "description": "Use native mbp of Z3",
+      "default": "true"
+    },
+    "spacer.order_children": {
+      "type": "unsigned int",
+      "description": "SPACER: order of enqueuing children in non-linear rules : 0 (original), 1 (reverse), 2 (random)",
+      "default": "0"
+    },
+    "spacer.p3.share_invariants": {
+      "type": "bool",
+      "description": "Share invariants lemmas",
+      "default": "false"
+    },
+    "spacer.p3.share_lemmas": {
+      "type": "bool",
+      "description": "Share frame lemmas",
+      "default": "false"
+    },
+    "spacer.propagate": {
+      "type": "bool",
+      "description": "Enable propagate/pushing phase",
+      "default": "true"
+    },
+    "spacer.push_pob": {
+      "type": "bool",
+      "description": "push blocked pobs to higher level",
+      "default": "false"
+    },
+    "spacer.push_pob_max_depth": {
+      "type": "unsigned int",
+      "description": "Maximum depth at which push_pob is enabled",
+      "default": "4294967295"
+    },
+    "spacer.q3": {
+      "type": "bool",
+      "description": "Allow quantified lemmas in frames",
+      "default": "true"
+    },
+    "spacer.q3.instantiate": {
+      "type": "bool",
+      "description": "Instantiate quantified lemmas",
+      "default": "true"
+    },
+    "spacer.q3.qgen.normalize": {
+      "type": "bool",
+      "description": "normalize cube before quantified generalization",
+      "default": "true"
+    },
+    "spacer.q3.use_qgen": {
+      "type": "bool",
+      "description": "use quantified lemma generalizer",
+      "default": "false"
+    },
+    "spacer.random_seed": {
+      "type": "unsigned int",
+      "description": "Random seed to be used by SMT solver",
+      "default": "0"
+    },
+    "spacer.reach_dnf": {
+      "type": "bool",
+      "description": "Restrict reachability facts to DNF",
+      "default": "true"
+    },
+    "spacer.reset_pob_queue": {
+      "type": "bool",
+      "description": "SPACER: reset pob obligation queue when entering a new level",
+      "default": "true"
+    },
+    "spacer.restart_initial_threshold": {
+      "type": "unsigned int",
+      "description": "Initial threshold for restarts",
+      "default": "10"
+    },
+    "spacer.restarts": {
+      "type": "bool",
+      "description": "Enable resetting obligation queue",
+      "default": "false"
+    },
+    "spacer.simplify_lemmas_post": {
+      "type": "bool",
+      "description": "simplify derived lemmas after inductive propagation",
+      "default": "false"
+    },
+    "spacer.simplify_lemmas_pre": {
+      "type": "bool",
+      "description": "simplify derived lemmas before inductive propagation",
+      "default": "false"
+    },
+    "spacer.simplify_pob": {
+      "type": "bool",
+      "description": "simplify pobs by removing redundant constraints",
+      "default": "false"
+    },
+    "spacer.trace_file": {
+      "type": "symbol",
+      "description": "Log file for progress events",
+      "default": ""
+    },
+    "spacer.use_array_eq_generalizer": {
+      "type": "bool",
+      "description": "SPACER: attempt to generalize lemmas with array equalities",
+      "default": "true"
+    },
+    "spacer.use_bg_invs": {
+      "type": "bool",
+      "description": "Enable external background invariants",
+      "default": "false"
+    },
+    "spacer.use_derivations": {
+      "type": "bool",
+      "description": "SPACER: using derivation mechanism to cache intermediate results for non-linear rules",
+      "default": "true"
+    },
+    "spacer.use_euf_gen": {
+      "type": "bool",
+      "description": "Generalize lemmas and pobs using implied equalities",
+      "default": "false"
+    },
+    "spacer.use_inc_clause": {
+      "type": "bool",
+      "description": "Use incremental clause to represent trans",
+      "default": "true"
+    },
+    "spacer.use_inductive_generalizer": {
+      "type": "bool",
+      "description": "generalize lemmas using induction strengthening",
+      "default": "true"
+    },
+    "spacer.use_iuc": {
+      "type": "bool",
+      "description": "Enable Interpolating Unsat Core(IUC) for lemma generalization",
+      "default": "true"
+    },
+    "spacer.use_lemma_as_cti": {
+      "type": "bool",
+      "description": "SPACER: use a lemma instead of a CTI in flexible_trace",
+      "default": "false"
+    },
+    "spacer.use_lim_num_gen": {
+      "type": "bool",
+      "description": "Enable limit numbers generalizer to get smaller numbers",
+      "default": "false"
+    },
+    "spacer.validate_lemmas": {
+      "type": "bool",
+      "description": "Validate each lemma after generalization",
+      "default": "false"
+    },
+    "spacer.weak_abs": {
+      "type": "bool",
+      "description": "Weak abstraction",
+      "default": "true"
+    },
+    "tab.selection": {
+      "type": "symbol",
+      "description": "selection method for tabular strategy: weight (default), first, var-use",
+      "default": "weight"
+    },
+    "validate": {
+      "type": "bool",
+      "description": "validate result (by proof checking or model checking)",
+      "default": "false"
+    },
+    "xform.array_blast": {
+      "type": "bool",
+      "description": "try to eliminate local array terms using Ackermannization -- some array terms may remain",
+      "default": "false"
+    },
+    "xform.array_blast_full": {
+      "type": "bool",
+      "description": "eliminate all local array variables by QE",
+      "default": "false"
+    },
+    "xform.bit_blast": {
+      "type": "bool",
+      "description": "bit-blast bit-vectors",
+      "default": "false"
+    },
+    "xform.coalesce_rules": {
+      "type": "bool",
+      "description": "coalesce rules",
+      "default": "false"
+    },
+    "xform.coi": {
+      "type": "bool",
+      "description": "use cone of influence simplification",
+      "default": "true"
+    },
+    "xform.compress_unbound": {
+      "type": "bool",
+      "description": "compress tails with unbound variables",
+      "default": "true"
+    },
+    "xform.elim_term_ite": {
+      "type": "bool",
+      "description": "Eliminate term-ite expressions",
+      "default": "false"
+    },
+    "xform.elim_term_ite.inflation": {
+      "type": "unsigned int",
+      "description": "Maximum inflation for non-Boolean ite-terms blasting: 0 (none), k (multiplicative)",
+      "default": "3"
+    },
+    "xform.fix_unbound_vars": {
+      "type": "bool",
+      "description": "fix unbound variables in tail",
+      "default": "false"
+    },
+    "xform.inline_eager": {
+      "type": "bool",
+      "description": "try eager inlining of rules",
+      "default": "true"
+    },
+    "xform.inline_linear": {
+      "type": "bool",
+      "description": "try linear inlining method",
+      "default": "true"
+    },
+    "xform.inline_linear_branch": {
+      "type": "bool",
+      "description": "try linear inlining method with potential expansion",
+      "default": "false"
+    },
+    "xform.instantiate_arrays": {
+      "type": "bool",
+      "description": "Transforms P(a) into P(i, a[i] a)",
+      "default": "false"
+    },
+    "xform.instantiate_arrays.enforce": {
+      "type": "bool",
+      "description": "Transforms P(a) into P(i, a[i]), discards a from predicate",
+      "default": "false"
+    },
+    "xform.instantiate_arrays.nb_quantifier": {
+      "type": "unsigned int",
+      "description": "Gives the number of quantifiers per array",
+      "default": "1"
+    },
+    "xform.instantiate_arrays.slice_technique": {
+      "type": "symbol",
+      "description": "<no-slicing>=> GetId(i) = i, <smash> => GetId(i) = true",
+      "default": "no-slicing"
+    },
+    "xform.instantiate_quantifiers": {
+      "type": "bool",
+      "description": "instantiate quantified Horn clauses using E-matching heuristic",
+      "default": "false"
+    },
+    "xform.magic": {
+      "type": "bool",
+      "description": "perform symbolic magic set transformation",
+      "default": "false"
+    },
+    "xform.quantify_arrays": {
+      "type": "bool",
+      "description": "create quantified Horn clauses from clauses with arrays",
+      "default": "false"
+    },
+    "xform.scale": {
+      "type": "bool",
+      "description": "add scaling variable to linear real arithmetic clauses",
+      "default": "false"
+    },
+    "xform.slice": {
+      "type": "bool",
+      "description": "simplify clause set using slicing",
+      "default": "true"
+    },
+    "xform.subsumption_checker": {
+      "type": "bool",
+      "description": "Enable subsumption checker (no support for model conversion)",
+      "default": "true"
+    },
+    "xform.tail_simplifier_pve": {
+      "type": "bool",
+      "description": "propagate_variable_equivalences",
+      "default": "true"
+    },
+    "xform.transform_arrays": {
+      "type": "bool",
+      "description": "Rewrites arrays equalities and applies select over store",
+      "default": "false"
+    },
+    "xform.unfold_rules": {
+      "type": "unsigned int",
+      "description": "unfold rules statically using iterative squaring",
+      "default": "0"
+    }
+  },
+  "smt": {
+    "description": "smt solver based on lazy smt",
+    "arith.auto_config_simplex": {
+      "type": "bool",
+      "description": "force simplex solver in auto_config",
+      "default": "false"
+    },
+    "arith.bprop_on_pivoted_rows": {
+      "type": "bool",
+      "description": "propagate bounds on rows changed by the pivot operation",
+      "default": "true"
+    },
+    "arith.branch_cut_ratio": {
+      "type": "unsigned int",
+      "description": "branch/cut ratio for linear integer arithmetic",
+      "default": "2"
+    },
+    "arith.dump_bound_lemmas": {
+      "type": "bool",
+      "description": "dump linear solver bounds to files in smt2 format",
+      "default": "false"
+    },
+    "arith.dump_lemmas": {
+      "type": "bool",
+      "description": "dump arithmetic theory lemmas to files",
+      "default": "false"
+    },
+    "arith.eager_eq_axioms": {
+      "type": "bool",
+      "description": "eager equality axioms",
+      "default": "true"
+    },
+    "arith.enable_hnf": {
+      "type": "bool",
+      "description": "enable hnf (Hermite Normal Form) cuts",
+      "default": "true"
+    },
+    "arith.epsilon": {
+      "type": "double",
+      "description": "initial value of epsilon used for model generation of infinitesimals",
+      "default": "1.0"
+    },
+    "arith.greatest_error_pivot": {
+      "type": "bool",
+      "description": "Pivoting strategy",
+      "default": "false"
+    },
+    "arith.ignore_int": {
+      "type": "bool",
+      "description": "treat integer variables as real",
+      "default": "false"
+    },
+    "arith.int_eq_branch": {
+      "type": "bool",
+      "description": "branching using derived integer equations",
+      "default": "false"
+    },
+    "arith.min": {
+      "type": "bool",
+      "description": "minimize cost",
+      "default": "false"
+    },
+    "arith.nl": {
+      "type": "bool",
+      "description": "(incomplete) nonlinear arithmetic support based on Groebner basis and interval propagation, relevant only if smt.arith.solver=2",
+      "default": "true"
+    },
+    "arith.nl.branching": {
+      "type": "bool",
+      "description": "branching on integer variables in non linear clusters",
+      "default": "true"
+    },
+    "arith.nl.cross_nested": {
+      "type": "bool",
+      "description": "enable cross-nested consistency checking",
+      "default": "true"
+    },
+    "arith.nl.delay": {
+      "type": "unsigned int",
+      "description": "number of calls to final check before invoking bounded nlsat check",
+      "default": "10"
+    },
+    "arith.nl.expensive_patching": {
+      "type": "bool",
+      "description": "use the expensive of monomials",
+      "default": "false"
+    },
+    "arith.nl.expp": {
+      "type": "bool",
+      "description": "expensive patching",
+      "default": "false"
+    },
+    "arith.nl.gr_q": {
+      "type": "unsigned int",
+      "description": "grobner's quota",
+      "default": "10"
+    },
+    "arith.nl.grobner": {
+      "type": "bool",
+      "description": "run grobner's basis heuristic",
+      "default": "true"
+    },
+    "arith.nl.grobner_cnfl_to_report": {
+      "type": "unsigned int",
+      "description": "grobner's maximum number of conflicts to report",
+      "default": "1"
+    },
+    "arith.nl.grobner_eqs_growth": {
+      "type": "unsigned int",
+      "description": "grobner's number of equalities growth",
+      "default": "10"
+    },
+    "arith.nl.grobner_exp_delay": {
+      "type": "bool",
+      "description": "use exponential delay between grobner basis attempts",
+      "default": "true"
+    },
+    "arith.nl.grobner_expand_terms": {
+      "type": "bool",
+      "description": "expand terms before computing grobner basis",
+      "default": "true"
+    },
+    "arith.nl.grobner_expr_degree_growth": {
+      "type": "unsigned int",
+      "description": "grobner's maximum expr degree growth",
+      "default": "2"
+    },
+    "arith.nl.grobner_expr_size_growth": {
+      "type": "unsigned int",
+      "description": "grobner's maximum expr size growth",
+      "default": "2"
+    },
+    "arith.nl.grobner_frequency": {
+      "type": "unsigned int",
+      "description": "grobner's call frequency",
+      "default": "4"
+    },
+    "arith.nl.grobner_gcd_test": {
+      "type": "bool",
+      "description": "detect gcd conflicts for polynomial powers x^k - y = 0",
+      "default": "true"
+    },
+    "arith.nl.grobner_max_simplified": {
+      "type": "unsigned int",
+      "description": "grobner's maximum number of simplifications",
+      "default": "10000"
+    },
+    "arith.nl.grobner_propagate_quotients": {
+      "type": "bool",
+      "description": "detect conflicts x*y + z = 0 where x doesn't divide z",
+      "default": "true"
+    },
+    "arith.nl.grobner_row_length_limit": {
+      "type": "unsigned int",
+      "description": "row is disregarded by the heuristic if its length is longer than the value",
+      "default": "10"
+    },
+    "arith.nl.grobner_subs_fixed": {
+      "type": "unsigned int",
+      "description": "0 - no subs, 1 - substitute, 2 - substitute fixed zeros only",
+      "default": "1"
+    },
+    "arith.nl.horner": {
+      "type": "bool",
+      "description": "run horner's heuristic",
+      "default": "true"
+    },
+    "arith.nl.horner_frequency": {
+      "type": "unsigned int",
+      "description": "horner's call frequency",
+      "default": "4"
+    },
+    "arith.nl.horner_row_length_limit": {
+      "type": "unsigned int",
+      "description": "row is disregarded by the heuristic if its length is longer than the value",
+      "default": "10"
+    },
+    "arith.nl.horner_subs_fixed": {
+      "type": "unsigned int",
+      "description": "0 - no subs, 1 - substitute, 2 - substitute fixed zeros only",
+      "default": "2"
+    },
+    "arith.nl.log": {
+      "type": "bool",
+      "description": "Log lemmas sent to nra solver",
+      "default": "false"
+    },
+    "arith.nl.nra": {
+      "type": "bool",
+      "description": "call nra_solver when incremental linearization does not produce a lemma, this option is ignored when arith.nl=false, relevant only if smt.arith.solver=6",
+      "default": "true"
+    },
+    "arith.nl.optimize_bounds": {
+      "type": "bool",
+      "description": "enable bounds optimization",
+      "default": "true"
+    },
+    "arith.nl.order": {
+      "type": "bool",
+      "description": "run order lemmas",
+      "default": "true"
+    },
+    "arith.nl.propagate_linear_monomials": {
+      "type": "bool",
+      "description": "propagate linear monomials",
+      "default": "true"
+    },
+    "arith.nl.reduce_pseudo_linear": {
+      "type": "bool",
+      "description": "create incremental linearization axioms for pseudo-linear monomials",
+      "default": "true"
+    },
+    "arith.nl.rounds": {
+      "type": "unsigned int",
+      "description": "threshold for number of (nested) final checks for non linear arithmetic, relevant only if smt.arith.solver=2",
+      "default": "1024"
+    },
+    "arith.nl.tangents": {
+      "type": "bool",
+      "description": "run tangent lemmas",
+      "default": "true"
+    },
+    "arith.print_ext_var_names": {
+      "type": "bool",
+      "description": "print external variable names",
+      "default": "false"
+    },
+    "arith.print_stats": {
+      "type": "bool",
+      "description": "print statistic",
+      "default": "false"
+    },
+    "arith.propagate_eqs": {
+      "type": "bool",
+      "description": "propagate (cheap) equalities",
+      "default": "true"
+    },
+    "arith.propagation_mode": {
+      "type": "unsigned int",
+      "description": "0 - no propagation, 1 - propagate existing literals, 2 - refine finite bounds",
+      "default": "1"
+    },
+    "arith.random_initial_value": {
+      "type": "bool",
+      "description": "use random initial values in the simplex-based procedure for linear arithmetic",
+      "default": "false"
+    },
+    "arith.rep_freq": {
+      "type": "unsigned int",
+      "description": "the report frequency, in how many iterations print the cost and other info",
+      "default": "0"
+    },
+    "arith.simplex_strategy": {
+      "type": "unsigned int",
+      "description": "simplex strategy for the solver",
+      "default": "0"
+    },
+    "arith.solver": {
+      "type": "unsigned int",
+      "description": "arithmetic solver: 0 - no solver, 1 - bellman-ford based solver (diff. logic only), 2 - simplex based solver, 3 - floyd-warshall based solver (diff. logic only) and no theory combination 4 - utvpi, 5 - infinitary lra, 6 - lra solver",
+      "default": "6"
+    },
+    "arith.validate": {
+      "type": "bool",
+      "description": "validate lemmas generated by arithmetic solver",
+      "default": "false"
+    },
+    "array.extensional": {
+      "type": "bool",
+      "description": "extensional array theory",
+      "default": "true"
+    },
+    "array.weak": {
+      "type": "bool",
+      "description": "weak array theory",
+      "default": "false"
+    },
+    "auto_config": {
+      "type": "bool",
+      "description": "automatically configure solver",
+      "default": "true"
+    },
+    "bound_simplifier": {
+      "type": "bool",
+      "description": "apply bounds simplification during pre-processing",
+      "default": "true"
+    },
+    "bv.delay": {
+      "type": "bool",
+      "description": "delay internalize expensive bit-vector operations",
+      "default": "false"
+    },
+    "bv.enable_int2bv": {
+      "type": "bool",
+      "description": "enable support for int2bv and bv2int operators",
+      "default": "true"
+    },
+    "bv.reflect": {
+      "type": "bool",
+      "description": "create enode for every bit-vector term",
+      "default": "true"
+    },
+    "bv.size_reduce": {
+      "type": "bool",
+      "description": "pre-processing; turn assertions that set the upper bits of a bit-vector to constants into a substitution that replaces the bit-vector with constant bits. Useful for minimizing circuits as many input bits to circuits are constant",
+      "default": "false"
+    },
+    "bv.solver": {
+      "type": "unsigned int",
+      "description": "bit-vector solver engine: 0 - bit-blasting, 1 - polysat, 2 - intblast, requires sat.smt=true",
+      "default": "0"
+    },
+    "bv.watch_diseq": {
+      "type": "bool",
+      "description": "use watch lists instead of eager axioms for bit-vectors",
+      "default": "false"
+    },
+    "candidate_models": {
+      "type": "bool",
+      "description": "create candidate models even when quantifier or theory reasoning is incomplete",
+      "default": "false"
+    },
+    "case_split": {
+      "type": "unsigned int",
+      "description": "0 - case split based on variable activity, 1 - similar to 0, but delay case splits created during the search, 2 - similar to 0, but cache the relevancy, 3 - case split based on relevancy (structural splitting), 4 - case split on relevancy and activity, 5 - case split on relevancy and current goal, 6 - activity-based case split with theory-aware branching activity",
+      "default": "1"
+    },
+    "clause_proof": {
+      "type": "bool",
+      "description": "record a clausal proof",
+      "default": "false"
+    },
+    "core.extend_nonlocal_patterns": {
+      "type": "bool",
+      "description": "extend unsat cores with literals that have quantifiers with patterns that contain symbols which are not in the quantifier's body",
+      "default": "false"
+    },
+    "core.extend_patterns": {
+      "type": "bool",
+      "description": "extend unsat core with literals that trigger (potential) quantifier instances",
+      "default": "false"
+    },
+    "core.extend_patterns.max_distance": {
+      "type": "unsigned int",
+      "description": "limits the distance of a pattern-extended unsat core",
+      "default": "4294967295"
+    },
+    "core.minimize": {
+      "type": "bool",
+      "description": "minimize unsat core produced by SMT context",
+      "default": "false"
+    },
+    "core.validate": {
+      "type": "bool",
+      "description": "[internal] validate unsat core produced by SMT context. This option is intended for debugging",
+      "default": "false"
+    },
+    "cube_depth": {
+      "type": "unsigned int",
+      "description": "cube depth.",
+      "default": "1"
+    },
+    "dack": {
+      "type": "unsigned int",
+      "description": "0 - disable dynamic ackermannization, 1 - expand Leibniz's axiom if a congruence is the root of a conflict, 2 - expand Leibniz's axiom if a congruence is used during conflict resolution",
+      "default": "1"
+    },
+    "dack.eq": {
+      "type": "bool",
+      "description": "enable dynamic ackermannization for transitivity of equalities",
+      "default": "false"
+    },
+    "dack.factor": {
+      "type": "double",
+      "description": "number of instance per conflict",
+      "default": "0.1"
+    },
+    "dack.gc": {
+      "type": "unsigned int",
+      "description": "Dynamic ackermannization garbage collection frequency (per conflict)",
+      "default": "2000"
+    },
+    "dack.gc_inv_decay": {
+      "type": "double",
+      "description": "Dynamic ackermannization garbage collection decay",
+      "default": "0.8"
+    },
+    "dack.threshold": {
+      "type": "unsigned int",
+      "description": "number of times the congruence rule must be used before Leibniz's axiom is expanded",
+      "default": "10"
+    },
+    "delay_units": {
+      "type": "bool",
+      "description": "if true then z3 will not restart when a unit clause is learned",
+      "default": "false"
+    },
+    "delay_units_threshold": {
+      "type": "unsigned int",
+      "description": "maximum number of learned unit clauses before restarting, ignored if delay_units is false",
+      "default": "32"
+    },
+    "dt_lazy_splits": {
+      "type": "unsigned int",
+      "description": "How lazy datatype splits are performed: 0- eager, 1- lazy for infinite types, 2- lazy",
+      "default": "1"
+    },
+    "elim_unconstrained": {
+      "type": "bool",
+      "description": "pre-processing: eliminate unconstrained subterms",
+      "default": "true"
+    },
+    "ematching": {
+      "type": "bool",
+      "description": "E-Matching based quantifier instantiation",
+      "default": "true"
+    },
+    "induction": {
+      "type": "bool",
+      "description": "enable generation of induction lemmas",
+      "default": "false"
+    },
+    "lemma_gc_strategy": {
+      "type": "unsigned int",
+      "description": "lemma garbage collection strategy: 0 - fixed, 1 - geometric, 2 - at restart, 3 - none",
+      "default": "0"
+    },
+    "logic": {
+      "type": "symbol",
+      "description": "logic used to setup the SMT solver",
+      "default": ""
+    },
+    "macro_finder": {
+      "type": "bool",
+      "description": "try to find universally quantified formulas that can be viewed as macros",
+      "default": "false"
+    },
+    "max_conflicts": {
+      "type": "unsigned int",
+      "description": "maximum number of conflicts before giving up.",
+      "default": "4294967295"
+    },
+    "mbqi": {
+      "type": "bool",
+      "description": "model based quantifier instantiation (MBQI)",
+      "default": "true"
+    },
+    "mbqi.force_template": {
+      "type": "unsigned int",
+      "description": "some quantifiers can be used as templates for building interpretations for functions. Z3 uses heuristics to decide whether a quantifier will be used as a template or not. Quantifiers with weight >= mbqi.force_template are forced to be used as a template",
+      "default": "10"
+    },
+    "mbqi.id": {
+      "type": "string",
+      "description": "Only use model-based instantiation for quantifiers with id's beginning with string",
+      "default": ""
+    },
+    "mbqi.max_cexs": {
+      "type": "unsigned int",
+      "description": "initial maximal number of counterexamples used in MBQI, each counterexample generates a quantifier instantiation",
+      "default": "1"
+    },
+    "mbqi.max_cexs_incr": {
+      "type": "unsigned int",
+      "description": "increment for MBQI_MAX_CEXS, the increment is performed after each round of MBQI",
+      "default": "0"
+    },
+    "mbqi.max_iterations": {
+      "type": "unsigned int",
+      "description": "maximum number of rounds of MBQI",
+      "default": "1000"
+    },
+    "mbqi.trace": {
+      "type": "bool",
+      "description": "generate tracing messages for Model Based Quantifier Instantiation (MBQI). It will display a message before every round of MBQI, and the quantifiers that were not satisfied",
+      "default": "false"
+    },
+    "pb.conflict_frequency": {
+      "type": "unsigned int",
+      "description": "conflict frequency for Pseudo-Boolean theory",
+      "default": "1000"
+    },
+    "pb.learn_complements": {
+      "type": "bool",
+      "description": "learn complement literals for Pseudo-Boolean theory",
+      "default": "true"
+    },
+    "phase_caching_off": {
+      "type": "unsigned int",
+      "description": "number of conflicts while phase caching is off",
+      "default": "100"
+    },
+    "phase_caching_on": {
+      "type": "unsigned int",
+      "description": "number of conflicts while phase caching is on",
+      "default": "400"
+    },
+    "phase_selection": {
+      "type": "unsigned int",
+      "description": "phase selection heuristic: 0 - always false, 1 - always true, 2 - phase caching, 3 - phase caching conservative, 4 - phase caching conservative 2, 5 - random, 6 - number of occurrences, 7 - theory",
+      "default": "3"
+    },
+    "propagate_values": {
+      "type": "bool",
+      "description": "pre-processing: propagate values",
+      "default": "true"
+    },
+    "pull_nested_quantifiers": {
+      "type": "bool",
+      "description": "pre-processing: pull nested quantifiers",
+      "default": "false"
+    },
+    "q.lift_ite": {
+      "type": "unsigned int",
+      "description": "0 - don not lift non-ground if-then-else, 1 - use conservative ite lifting, 2 - use full lifting of if-then-else under quantifiers",
+      "default": "0"
+    },
+    "q.lite": {
+      "type": "bool",
+      "description": "Use cheap quantifier elimination during pre-processing",
+      "default": "false"
+    },
+    "qi.cost": {
+      "type": "string",
+      "description": "expression specifying what is the cost of a given quantifier instantiation",
+      "default": "(+ weight generation)"
+    },
+    "qi.eager_threshold": {
+      "type": "double",
+      "description": "threshold for eager quantifier instantiation",
+      "default": "10.0"
+    },
+    "qi.lazy_threshold": {
+      "type": "double",
+      "description": "threshold for lazy quantifier instantiation",
+      "default": "20.0"
+    },
+    "qi.max_instances": {
+      "type": "unsigned int",
+      "description": "maximum number of quantifier instantiations",
+      "default": "4294967295"
+    },
+    "qi.max_multi_patterns": {
+      "type": "unsigned int",
+      "description": "specify the number of extra multi patterns",
+      "default": "0"
+    },
+    "qi.profile": {
+      "type": "bool",
+      "description": "profile quantifier instantiation",
+      "default": "false"
+    },
+    "qi.profile_freq": {
+      "type": "unsigned int",
+      "description": "how frequent results are reported by qi.profile",
+      "default": "4294967295"
+    },
+    "qi.quick_checker": {
+      "type": "unsigned int",
+      "description": "specify quick checker mode, 0 - no quick checker, 1 - using unsat instances, 2 - using both unsat and no-sat instances",
+      "default": "0"
+    },
+    "qsat_use_qel": {
+      "type": "bool",
+      "description": "Use QEL for lite quantifier elimination and model-based projection in QSAT",
+      "default": "true"
+    },
+    "quasi_macros": {
+      "type": "bool",
+      "description": "try to find universally quantified formulas that are quasi-macros",
+      "default": "false"
+    },
+    "random_seed": {
+      "type": "unsigned int",
+      "description": "random seed for the smt solver",
+      "default": "0"
+    },
+    "refine_inj_axioms": {
+      "type": "bool",
+      "description": "pre-processing: refine injectivity axioms",
+      "default": "true"
+    },
+    "relevancy": {
+      "type": "unsigned int",
+      "description": "relevancy propagation heuristic: 0 - disabled, 1 - relevancy is tracked by only affects quantifier instantiation, 2 - relevancy is tracked, and an atom is only asserted if it is relevant",
+      "default": "2"
+    },
+    "restart.max": {
+      "type": "unsigned int",
+      "description": "maximal number of restarts.",
+      "default": "4294967295"
+    },
+    "restart_factor": {
+      "type": "double",
+      "description": "when using geometric (or inner-outer-geometric) progression of restarts, it specifies the constant used to multiply the current restart threshold",
+      "default": "1.1"
+    },
+    "restart_strategy": {
+      "type": "unsigned int",
+      "description": "0 - geometric, 1 - inner-outer-geometric, 2 - luby, 3 - fixed, 4 - arithmetic",
+      "default": "1"
+    },
+    "restricted_quasi_macros": {
+      "type": "bool",
+      "description": "try to find universally quantified formulas that are restricted quasi-macros",
+      "default": "false"
+    },
+    "seq.max_unfolding": {
+      "type": "unsigned int",
+      "description": "maximal unfolding depth for checking string equations and regular expressions",
+      "default": "1000000000"
+    },
+    "seq.min_unfolding": {
+      "type": "unsigned int",
+      "description": "initial bound for strings whose lengths are bounded by iterative deepening. Set this to a higher value if there are only models with larger string lengths",
+      "default": "1"
+    },
+    "seq.split_w_len": {
+      "type": "bool",
+      "description": "enable splitting guided by length constraints",
+      "default": "true"
+    },
+    "seq.validate": {
+      "type": "bool",
+      "description": "enable self-validation of theory axioms created by seq theory",
+      "default": "false"
+    },
+    "sls.enable": {
+      "type": "bool",
+      "description": "enable sls co-processor with SMT engine",
+      "default": "false"
+    },
+    "sls.parallel": {
+      "type": "bool",
+      "description": "use sls co-processor in parallel or sequential with SMT engine",
+      "default": "true"
+    },
+    "solve_eqs": {
+      "type": "bool",
+      "description": "pre-processing: solve equalities",
+      "default": "true"
+    },
+    "solve_eqs.non_ground": {
+      "type": "bool",
+      "description": "pre-processing: solve equalities. Allow eliminating variables by non-ground solutions which can break behavior for model evaluation.",
+      "default": "true"
+    },
+    "string_solver": {
+      "type": "symbol",
+      "description": "solver for string/sequence theories. options are: 'z3str3' (specialized string solver), 'seq' (sequence solver), 'auto' (use static features to choose best solver), 'empty' (a no-op solver that forces an answer unknown if strings were used), 'none' (no solver)",
+      "default": "seq"
+    },
+    "theory_aware_branching": {
+      "type": "bool",
+      "description": "Allow the context to use extra information from theory solvers regarding literal branching prioritization.",
+      "default": "false"
+    },
+    "theory_case_split": {
+      "type": "bool",
+      "description": "Allow the context to use heuristics involving theory case splits, which are a set of literals of which exactly one can be assigned True. If this option is false, the context will generate extra axioms to enforce this instead.",
+      "default": "false"
+    },
+    "threads": {
+      "type": "unsigned int",
+      "description": "maximal number of parallel threads.",
+      "default": "1"
+    },
+    "threads.cube_frequency": {
+      "type": "unsigned int",
+      "description": "frequency for using cubing",
+      "default": "2"
+    },
+    "threads.max_conflicts": {
+      "type": "unsigned int",
+      "description": "maximal number of conflicts between rounds of cubing for parallel SMT",
+      "default": "400"
+    },
+    "up.persist_clauses": {
+      "type": "bool",
+      "description": "replay propagated clauses below the levels they are asserted",
+      "default": "false"
+    }
+  },
+  "parser": {
+    "error_for_visual_studio": {
+      "type": "bool",
+      "description": "display error messages in Visual Studio format",
+      "default": "false"
+    },
+    "ignore_bad_patterns": {
+      "type": "bool",
+      "description": "ignore malformed patterns",
+      "default": "true"
+    },
+    "ignore_user_patterns": {
+      "type": "bool",
+      "description": "ignore patterns provided by the user",
+      "default": "false"
+    }
+  }
+}
