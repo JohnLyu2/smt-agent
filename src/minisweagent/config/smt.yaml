@@ -19,16 +19,64 @@ agent:
     Please solve this SMT problem at {{task}} with Z3.
 
 
-    ## Recommended Workflow
+    ## Process
 
     The directory of {{task}} is the working directory of this task. Put all the modified/created smt2 files, solving trace files, and analysis scripts in this directory.
 
-    This workflow should be done step-by-step.
+    This workflow should be done step-by-step so that you can iterate on your choices and any possible problems.
 
-    1. Read the problem file and understand the problem.
-    2. Attempt to solve the problem using Z3 with different configurations and strategies, applying appropriate timeouts for each attempt (for Z3 terminal calling, use `-T:<timeout_seconds>` instead of put `timeout` in the command).
-    3. Finish your work once the problem is solved, by issuing the following command: `echo COMPLETE_TASK_AND_SUBMIT_FINAL_OUTPUT`.
-       Do not combine it with any other command. <important>After this command, you cannot continue working on this task.</important>
+    ### Phase 1: Understand the Problem
+    
+    Give a summary of the SMT problem task (Note that the problem file may be very large, so you may need to use `head`, `tail`, and `grep` to view a smaller number of lines selectively.), including: 
+
+    - **Problem Overview**: Identify the logic (e.g., QF_BV, LIA, NRA, etc.), source, and general purpose of the problem.
+    Also provide meta info, preferablly extracted from Z3 probes, including:
+
+      - memory usage (probe `memory`), 
+      - number of assertions (probe `size`), 
+      - number of expressions (probe `num-exprs`), 
+      - number of non-Boolean constants (probe `num-consts`),
+      - number of Boolean constants (probe `num-bool-consts`),
+      - number of arithmetic constants (probe `num-arith-consts`),
+      - number of bit-vector constants (probe `num-bv-consts`),
+      - depth of the problem (probe `depth`), 
+      - whether contains quantifiers (probe `has-quantifiers`),
+      - whether contains quantifiers with patterns. (probe `has-patterns`),
+
+      and other relevant information that you see fit. You MUST consult probe JSON file: `/Users/zhengyanglu/Desktop/mini-swe-agent/smt_assist/docs/probes.json` if using any probes not listed above.
+
+      The usage of probes is as follows:
+
+      ```bash
+      # An example of using the `num-consts` probe
+      cat << 'EOF' > <probe_z3py_file>.py
+      from z3 import *
+      g = Goal()
+      g.add(*parse_smt2_file("<problem_smt2_file>"))
+      p_num_consts = Probe("num-consts")
+      print(f"Number of constants: {p_num_consts(g)}")
+      EOF
+      python3 <probe_z3py_file>.py
+      ```
+
+    - **Interpretation**: Infer the interpretation of the variables, functions, predicates, constraints, and the problem, if possible. 
+
+    ### Phase 2:
+
+    Attempt to solve the problem using Z3 with different configurations and strategies, applying appropriate timeouts for each attempt (for Z3 terminal calling, use `-T:<timeout_seconds>` instead of put `timeout` in the command). For each call using parameters or strategies/tactics, you should first consult the following files to understand the parameters and strategies/tactics:
+
+    - All Z3 parameters are stored in `/Users/zhengyanglu/Desktop/mini-swe-agent/smt_assist/docs/parameters.json`. The parameters are organized by modules as JSON top-level keys, including: `global`, `pi`, `tactic`, `pp`, `sat`, `model`, `solver`, `lp`, `opt`, `parallel`, `nnf`, `algebraic`, `combined_solver`, `rcf`, `model_evaluator`, `ackermannization`, `nlsat`, `sls`, `rewriter`, `fp`, `smt`, `parser`. Each parameter within a module is a JSON object containing three fields: `type`, `description`, and `default`. To set a global parameters, use `<parameter-name>=<value>` while for module parameters, use `<module-name>.<parameter-name>=<value>`.
+
+    - All Z3 tactics and their parameters are stored in `/Users/zhengyanglu/Desktop/mini-swe-agent/smt_assist/docs/tactics.json`. The JSON root in an object with tactic entries. Each entry is keyed by the tactic name (e.g., `simplify`, `solve-eqs`, `smt`) and each tactic object has two fields: `description` and `parameters`. The `parameters` field is a list of parameter objects, each containing fields: `name`, `type`, `description`, and `default` (optional).
+
+    ### Phase 3:
+
+    If the previous attemps failed, analyze the solving trace and the result to understand the problem and the solver's progress (e.g., `rlimit` can be an indicator of the solver's progress/resource usage). Then, proceed to the next attempt.
+
+    ### Phase 4:
+
+    Finish your work once the problem is solved, by issuing the following command: `echo COMPLETE_TASK_AND_SUBMIT_FINAL_OUTPUT`.
+    Do not combine it with any other command. <important>After this command, you cannot continue working on this task.</important>
 
     ## Important Rules
 
@@ -136,20 +184,6 @@ agent:
     python3 <probe_z3py_file>.py
     ```
 
-    ### Z3 probes:
-    Probes are built-in Z3 formula measures. You can use probes to better understand the problem and the solver's progress.
-
-    ```bash
-    # An example of using the `num-consts` probe
-    cat << 'EOF' > <probe_z3py_file>.py
-    from z3 import *
-    g = Goal()
-    g.add(*parse_smt2_file("<problem_smt2_file>"))
-    p_num_consts = Probe("num-consts")
-    print(f"Number of constants: {p_num_consts(g)}")
-    EOF
-    python3 <probe_z3py_file>.py
-    ```
 
   action_observation_template: |
     <returncode>{{output.returncode}}</returncode>
