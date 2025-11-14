@@ -14,9 +14,19 @@ Start the SMT assistant with one SMT task:
 smt_assist -t <smt_path>
 ```
 
-For each run, a working directory will be created under the `experiments/` folder, named by the SMT file name and the timestamp. You can find all related files and logs in this directory.
+When running for the first time, you will be prompted to set up the default LLM model, and it is the same as running `mini-extra config setup`. Check [here](https://mini-swe-agent.com/latest/models/quickstart/) for more info. You can also use the `-m` flag to specify the model.
 
-You can check the SMT-specific configuration file at `src/minisweagent/config/smt.yaml`.
+For each run, a working directory will be created under the `experiments/` folder, named by the SMT file name and the timestamp. After the run, you can find the following files in the directory:
+
+- A copy of the SMT file
+- `log.json`: The full log of the run
+- `readable_log.md`: A readable replay log of the run
+- Agent generated files (e.g., summary of the problem, summary of the solving process, etc.), scripts, or script outputs
+
+# Relevant Files
+
+- For now, I mainly modified the prompts in `src/minisweagent/config/smt.yaml` for the SMT tasks.
+- I created a folder `smt_assist/` to store SMT-specific information. Currently, the agent does not leverage it well.
 
 ***
 
