@@ -25,7 +25,7 @@ For each run, a working directory will be created under the `experiments/` folde
 
 You can upload interesting runs to the repo.
 
-# Relevant Files
+## Relevant Files
 
 - For now, I mainly modified the prompts in `src/minisweagent/config/smt.yaml` for the SMT tasks.
 - I created a folder `smt_assist/` to store SMT-specific information. Currently, the agent does not leverage it well.
