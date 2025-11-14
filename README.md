@@ -23,6 +23,8 @@ For each run, a working directory will be created under the `experiments/` folde
 - `readable_log.md`: A readable replay log of the run
 - Agent generated files (e.g., summary of the problem, summary of the solving process, etc.), scripts, or script outputs
 
+You can upload interesting runs to the repo.
+
 # Relevant Files
 
 - For now, I mainly modified the prompts in `src/minisweagent/config/smt.yaml` for the SMT tasks.
