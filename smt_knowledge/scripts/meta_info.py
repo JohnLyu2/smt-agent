@@ -1,10 +1,12 @@
 import warnings
 from pathlib import Path
+from collections import Counter
 
 import typer
 
 import pysmt.smtlib.commands as smtcmd
 from pysmt.oracles import SizeOracle, get_logic
+from pysmt.environment import get_env
 from pysmt.smtlib.parser import SmtLibParser
 
 app = typer.Typer()
@@ -39,15 +41,10 @@ def main(smt_lib_path: str = typer.Argument(help="Path to SMT-LIB file")):
     print(f"logic (identified by PySMT): {pysmt_logic}")
 
     # script level info
-    num_asserts = script.count_command_occurrences(smtcmd.ASSERT)
-    # num_declares = sum(1 for cmd in commands if getattr(cmd, "name", None) == "declare-fun")
-    # num_defines = sum(1 for cmd in commands if getattr(cmd, "name", None) == "define-fun")
-    # num_checks = sum(1 for cmd in commands if getattr(cmd, "name", None) == "check-sat")
+    cmd_counter = Counter(cmd.name for cmd in script)
 
-    print(f"Number of assertions: {num_asserts}")
-    # print(f"Number of function declarations: {num_declares}")
-    # print(f"Number of function definitions: {num_defines}")
-    # print(f"Number of check-sat commands: {num_checks}")
+    for cmd_name, count in cmd_counter.items():
+        print(f"Num of {cmd_name} commands: {count}")
 
     # formula level info
     # Followings are 6 size metrics from PySMT SizeOracle
@@ -58,14 +55,32 @@ def main(smt_lib_path: str = typer.Argument(help="Path to SMT-LIB file")):
         tree_leaf_size = f.size(SizeOracle.MEASURE_LEAVES)
         depth = f.size(SizeOracle.MEASURE_DEPTH)
         symbol_size = f.size(SizeOracle.MEASURE_SYMBOLS)
+        free_vars = f.get_free_variables()
+        free_vars_size = len(free_vars)
         bool_dag_size = f.size(SizeOracle.MEASURE_BOOL_DAG)
+        bool_atoms = f.get_atoms()
+        bool_atoms_size = len(bool_atoms)
 
-    print(f"Number of nodes in the formula seen as a tree: {tree_node_size}")
-    print(f"Number of nodes in the formula seen as a DAG: {dag_node_size}")
-    print(f"Number of leaves in the formula seen as a tree: {tree_leaf_size}")
+    env = get_env()
+    is_qf = env.qfo.is_qf(f)
+    theories = env.theoryo.get_theory(f)
+    types = env.typeso.get_types(f)
+
+    print(f"Num of nodes in the formula seen as a tree: {tree_node_size}")
+    print(f"Num of nodes in the formula seen as a DAG: {dag_node_size}")
+    print(f"Num of leaves in the formula seen as a tree: {tree_leaf_size}")
     print(f"Depth of the formula: {depth}")
-    print(f"Number of different symbols in the formula: {symbol_size}")
-    print(f"Number of nodes in the formula seen as a boolean DAG: {bool_dag_size}")
+    # I think `MEASURE_SYMBOLS` measures the number of declared fun's and declared const's,
+    # same as the length of SmtLibScript.get_declared_symbols()
+    print(f"Num of different symbols in the formula: {symbol_size}")
+    print(f"Num of free variables in the formula: {free_vars_size}")
+    # figure out the difference between `bool_dag_size` and `bool_atoms_size`
+    print(f"Num of nodes in the formula seen as a boolean DAG: {bool_dag_size}")
+    print(f"Num of Boolean atoms (a Boolean variable or a theory atom) in the formula: {bool_atoms_size}")
+
+    print(f"Is QF: {is_qf}")
+    print(f"Theories: {theories}")
+    print(f"Types: {types}")
 
 
 if __name__ == "__main__":

@@ -43,7 +43,7 @@ agent:
       - whether contains quantifiers (probe `has-quantifiers`),
       - whether contains quantifiers with patterns. (probe `has-patterns`),
 
-      and other relevant information that you see fit. You MUST consult probe JSON file: `/Users/zhengyanglu/Desktop/mini-swe-agent/smt_assist/docs/probes.json` if using any probes not listed above.
+      and other relevant information that you see fit. You MUST consult probe JSON file: `{{knowledge_dir}}/docs/probes.json` if using any probes not listed above.
 
       The usage of probes is as follows:
 
@@ -65,9 +65,9 @@ agent:
 
     Attempt to solve the problem using Z3 with different configurations and strategies, applying appropriate timeouts for each attempt (for Z3 terminal calling, use `-T:<timeout_seconds>` instead of put `timeout` in the command). For each call using parameters or strategies/tactics, you should first consult the following files to understand the parameters and strategies/tactics:
 
-    - All Z3 parameters are stored in `/Users/zhengyanglu/Desktop/mini-swe-agent/smt_assist/docs/parameters.json`. The parameters are organized by modules as JSON top-level keys, including: `global`, `pi`, `tactic`, `pp`, `sat`, `model`, `solver`, `lp`, `opt`, `parallel`, `nnf`, `algebraic`, `combined_solver`, `rcf`, `model_evaluator`, `ackermannization`, `nlsat`, `sls`, `rewriter`, `fp`, `smt`, `parser`. Each parameter within a module is a JSON object containing three fields: `type`, `description`, and `default`. To set a global parameters, use `<parameter-name>=<value>` while for module parameters, use `<module-name>.<parameter-name>=<value>`.
+    - All Z3 parameters are stored in `{{knowledge_dir}}/docs/parameters.json`. The parameters are organized by modules as JSON top-level keys, including: `global`, `pi`, `tactic`, `pp`, `sat`, `model`, `solver`, `lp`, `opt`, `parallel`, `nnf`, `algebraic`, `combined_solver`, `rcf`, `model_evaluator`, `ackermannization`, `nlsat`, `sls`, `rewriter`, `fp`, `smt`, `parser`. Each parameter within a module is a JSON object containing three fields: `type`, `description`, and `default`. To set a global parameters, use `<parameter-name>=<value>` while for module parameters, use `<module-name>.<parameter-name>=<value>`.
 
-    - All Z3 tactics and their parameters are stored in `/Users/zhengyanglu/Desktop/mini-swe-agent/smt_assist/docs/tactics.json`. The JSON root in an object with tactic entries. Each entry is keyed by the tactic name (e.g., `simplify`, `solve-eqs`, `smt`) and each tactic object has two fields: `description` and `parameters`. The `parameters` field is a list of parameter objects, each containing fields: `name`, `type`, `description`, and `default` (optional).
+    - All Z3 tactics and their parameters are stored in `{{knowledge_dir}}/docs/tactics.json`. The JSON root in an object with tactic entries. Each entry is keyed by the tactic name (e.g., `simplify`, `solve-eqs`, `smt`) and each tactic object has two fields: `description` and `parameters`. The `parameters` field is a list of parameter objects, each containing fields: `name`, `type`, `description`, and `default` (optional).
 
     ### Phase 3:
 

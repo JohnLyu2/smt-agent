@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
-"""Run mini-SWE-agent in your local environment. This is the default executable `mini`."""
-# Read this first: https://mini-swe-agent.com/latest/usage/mini/  (usage)
+"""Run SMT assist agent in your local environment. This is the default executable `smt_assist`."""
 
 import os
 import shutil
@@ -96,6 +95,8 @@ def main(
     # Create experiment folder under project root if not exist
     project_root = Path(__file__).resolve().parent.parent.parent.parent
     experiments_dir = project_root / "experiments"
+    smt_knowledge_dir = project_root / "smt_knowledge"
+    z3_source_dir = smt_knowledge_dir / "z3"
     experiments_dir.mkdir(exist_ok=True)
     # Create a working directory for this task under the experiment folder
     instance_name = task_path.stem
@@ -129,6 +130,9 @@ def main(
         agent_class = TextualAgent
 
     agent = agent_class(model, env, **config.get("agent", {}))
+
+    agent.extra_template_vars["knowledge_dir"] = smt_knowledge_dir
+    agent.extra_template_vars["z3_dir"] = z3_source_dir
     exit_status, result, extra_info = None, None, None
     try:
         exit_status, result = agent.run(task)  # type: ignore[arg-type]

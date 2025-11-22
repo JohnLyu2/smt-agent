@@ -183,4 +183,4 @@ pyrightconfig.json
 # End of https://www.toptal.com/developers/gitignore/api/python
 
 # smt specific
-smt_assist/z3/
+smt_knowledge/z3/
