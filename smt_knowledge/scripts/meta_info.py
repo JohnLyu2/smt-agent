@@ -1,13 +1,15 @@
 import warnings
-from pathlib import Path
 from collections import Counter
+from pathlib import Path
 
 import typer
-
 import pysmt.smtlib.commands as smtcmd
-from pysmt.oracles import SizeOracle, get_logic
 from pysmt.environment import get_env
+from pysmt.operators import QUANTIFIERS
+from pysmt.oracles import SizeOracle, get_logic
 from pysmt.smtlib.parser import SmtLibParser
+
+from pysmt_walker_counter import extract_features
 
 app = typer.Typer()
 
@@ -46,7 +48,6 @@ def main(smt_lib_path: str = typer.Argument(help="Path to SMT-LIB file")):
     for cmd_name, count in cmd_counter.items():
         print(f"Num of {cmd_name} commands: {count}")
 
-    # formula level info
     # Followings are 6 size metrics from PySMT SizeOracle
     with warnings.catch_warnings():
         warnings.filterwarnings("ignore", category=UserWarning, module="pysmt")
@@ -66,6 +67,10 @@ def main(smt_lib_path: str = typer.Argument(help="Path to SMT-LIB file")):
     theories = env.theoryo.get_theory(f)
     types = env.typeso.get_types(f)
 
+    # Extract all element counts
+    element_counts = extract_features(smt_lib_path)
+
+    print("\n=== Formula Level Info ===")
     print(f"Num of nodes in the formula seen as a tree: {tree_node_size}")
     print(f"Num of nodes in the formula seen as a DAG: {dag_node_size}")
     print(f"Num of leaves in the formula seen as a tree: {tree_leaf_size}")
@@ -78,9 +83,18 @@ def main(smt_lib_path: str = typer.Argument(help="Path to SMT-LIB file")):
     print(f"Num of nodes in the formula seen as a boolean DAG: {bool_dag_size}")
     print(f"Num of Boolean atoms (a Boolean variable or a theory atom) in the formula: {bool_atoms_size}")
 
-    print(f"Is QF: {is_qf}")
-    print(f"Theories: {theories}")
-    print(f"Types: {types}")
+    print(f"Is Quantifier-Free: {is_qf}")
+    if not is_qf:
+        for quantifier in QUANTIFIERS:
+            print(f"Num of {quantifier}: {element_counts[quantifier]}")
+
+    involved_theories = [theory for theory, present in theories.items() if present]
+    print(f"Involved theories: {involved_theories}")
+    print(f"All appearing types: {types}")
+
+    print("\n=== Node Type Counts ===")
+    for node_type, count in sorted(element_counts.items()):
+        print(f"{node_type}: {count}")
 
 
 if __name__ == "__main__":
