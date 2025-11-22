@@ -1,7 +1,6 @@
 from collections import Counter
 from pysmt.walkers import DagWalker
 from pysmt.shortcuts import read_smtlib
-import pysmt.operators as op
 from pysmt.operators import ALL_TYPES
 import sys
 
@@ -22,8 +21,7 @@ class FeatureExtractor(DagWalker):
         if node_type not in ALL_TYPES:
             raise ValueError(f"Unknown node type {node_type} not in ALL_TYPES")
 
-        type_name = op.op_to_str(node_type)
-        self.counts[type_name] += 1
+        self.counts[node_type] += 1
 
         # Recursively process children
         for child in formula.args():

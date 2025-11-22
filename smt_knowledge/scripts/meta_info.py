@@ -5,7 +5,7 @@ from pathlib import Path
 import typer
 import pysmt.smtlib.commands as smtcmd
 from pysmt.environment import get_env
-from pysmt.operators import QUANTIFIERS
+from pysmt.operators import op_to_str, QUANTIFIERS, BOOL_CONNECTIVES, CONSTANTS
 from pysmt.oracles import SizeOracle, get_logic
 from pysmt.smtlib.parser import SmtLibParser
 
@@ -75,26 +75,41 @@ def main(smt_lib_path: str = typer.Argument(help="Path to SMT-LIB file")):
     print(f"Num of nodes in the formula seen as a DAG: {dag_node_size}")
     print(f"Num of leaves in the formula seen as a tree: {tree_leaf_size}")
     print(f"Depth of the formula: {depth}")
-    # I think `MEASURE_SYMBOLS` measures the number of declared fun's and declared const's,
+    # `MEASURE_SYMBOLS` measures the number of declared fun's and declared const's,
     # same as the length of SmtLibScript.get_declared_symbols()
+    # still some questions about these... SYMBOL, FUNCTION types...
     print(f"Num of different symbols in the formula: {symbol_size}")
     print(f"Num of free variables in the formula: {free_vars_size}")
     # figure out the difference between `bool_dag_size` and `bool_atoms_size`
     print(f"Num of nodes in the formula seen as a boolean DAG: {bool_dag_size}")
     print(f"Num of Boolean atoms (a Boolean variable or a theory atom) in the formula: {bool_atoms_size}")
 
-    print(f"Is Quantifier-Free: {is_qf}")
-    if not is_qf:
-        for quantifier in QUANTIFIERS:
-            print(f"Num of {quantifier}: {element_counts[quantifier]}")
-
-    involved_theories = [theory for theory, present in theories.items() if present]
-    print(f"Involved theories: {involved_theories}")
     print(f"All appearing types: {types}")
 
-    print("\n=== Node Type Counts ===")
+    print(f"Is Quantifier-Free: {is_qf}")
+    # if not is_qf:
+    #     for quantifier in QUANTIFIERS:
+    #         count = element_counts.get(quantifier, 0)
+    #         quantifier_str = op_to_str(quantifier)
+    #         print(f"Num of {quantifier_str}: {count}")
+
+    # for bool_connective in BOOL_CONNECTIVES:
+    #     if count := element_counts.get(bool_connective, 0):
+    #         bool_connective_str = op_to_str(bool_connective)
+    #         print(f"Num of {bool_connective_str}: {count}")
+
+    # later may move counters of symbol, constant, and operator for different theories together
+    # for constant in CONSTANTS:
+    #     if count := element_counts.get(constant, 0):
+    #         constant_str = op_to_str(constant)
+    #         print(f"Num of {constant_str}: {count}")
+
+    # involved_theories = [theory for theory, present in theories.items() if present]
+    # print(f"Involved theories: {involved_theories}")
+
+    print("\n=== Formula DAG Node Type Counts ===")
     for node_type, count in sorted(element_counts.items()):
-        print(f"{node_type}: {count}")
+        print(f"{op_to_str(node_type)}: {count}")
 
 
 if __name__ == "__main__":
