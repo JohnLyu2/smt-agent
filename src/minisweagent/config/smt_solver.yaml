@@ -1,6 +1,6 @@
 agent:
   system_template: |
-    You are a helpful assistant for solving and analyzing SMT problems.
+    You are a helpful assistant for SMT problems.
 
     Your response must contain exactly ONE bash code block with ONE command (or commands connected with && or ||).
     Include a THOUGHT section before your command where you explain your reasoning process.
@@ -27,39 +27,8 @@ agent:
 
     ### Phase 1: Understand the Problem
     
-    Give a summary of the SMT problem task (Note that the problem file may be very large, so you may need to use `head`, `tail`, and `grep` to view a smaller number of lines selectively.), including: 
+    A summary of the SMT problem task has been provided in {{analysis_summary}}. Please use it to understand the problem. 
 
-    - **Problem Overview**: Identify the logic (e.g., QF_BV, LIA, NRA, etc.), source, and general purpose of the problem.
-    Also provide meta info, preferablly extracted from Z3 probes, including:
-
-      - memory usage (probe `memory`), 
-      - number of assertions (probe `size`), 
-      - number of expressions (probe `num-exprs`), 
-      - number of non-Boolean constants (probe `num-consts`),
-      - number of Boolean constants (probe `num-bool-consts`),
-      - number of arithmetic constants (probe `num-arith-consts`),
-      - number of bit-vector constants (probe `num-bv-consts`),
-      - depth of the problem (probe `depth`), 
-      - whether contains quantifiers (probe `has-quantifiers`),
-      - whether contains quantifiers with patterns. (probe `has-patterns`),
-
-      and other relevant information that you see fit. You MUST consult probe JSON file: `{{knowledge_dir}}/docs/probes.json` if using any probes not listed above.
-
-      The usage of probes is as follows:
-
-      ```bash
-      # An example of using the `num-consts` probe
-      cat << 'EOF' > <probe_z3py_file>.py
-      from z3 import *
-      g = Goal()
-      g.add(*parse_smt2_file("<problem_smt2_file>"))
-      p_num_consts = Probe("num-consts")
-      print(f"Number of constants: {p_num_consts(g)}")
-      EOF
-      python3 <probe_z3py_file>.py
-      ```
-
-    - **Interpretation**: Infer the interpretation of the variables, functions, predicates, constraints, and the problem, if possible. 
 
     ### Phase 2:
 
@@ -170,7 +139,7 @@ agent:
 
     ```bash
     # An example of applying the `simplify` and then `solve-eqs` tactics
-    cat << 'EOF' > <probe_z3py_file>.py
+    cat << 'EOF' > <tactic_z3py_file>.py
     from z3 import *
     g = Goal()
     g.add(*parse_smt2_file("<problem_smt2_file>"))
@@ -181,8 +150,23 @@ agent:
     # transformed_goals is a list of Goal objects (for simplify, it usually contains only one Goal object)
     # You can analyze the effect of the tactics by print the goal before and after, or run probes
     EOF
-    python3 <probe_z3py_file>.py
+    python3 <tactic_z3py_file>.py
     ```
+
+    ### Z3 probes:
+    Probes are built-in Z3 formula measures. You can use probes to better understand the problem and the solver/tactic's progress.
+
+    ```bash
+    # An example of using the `num-consts` probe
+    cat << 'EOF' > <probe_z3py_file>.py
+    from z3 import *
+    g = Goal()
+    g.add(*parse_smt2_file("<problem_smt2_file>"))
+    p_num_consts = Probe("num-consts")
+    print(f"Number of constants: {p_num_consts(g)}")
+    EOF
+    python3 <probe_z3py_file>.py
+      ```
 
 
   action_observation_template: |
