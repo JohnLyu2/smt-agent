@@ -8,6 +8,7 @@ from pysmt.environment import get_env
 from pysmt.operators import op_to_str, QUANTIFIERS, BOOL_CONNECTIVES, CONSTANTS
 from pysmt.oracles import SizeOracle, get_logic
 from pysmt.smtlib.parser import SmtLibParser
+from pysmt.logics import Logic, get_closer_smtlib_logic
 
 from pysmt_walker_counter import extract_features
 
@@ -39,8 +40,19 @@ def main(smt_lib_path: str = typer.Argument(help="Path to SMT-LIB file")):
 
     f = script.get_last_formula()
 
-    pysmt_logic = get_logic(f)
-    print(f"logic (identified by PySMT): {pysmt_logic}")
+    env = get_env()
+    is_qf = env.qfo.is_qf(f)
+    theory = env.theoryo.get_theory(f)
+    types = env.typeso.get_types(f)
+
+    logic = Logic(name="Detected Logic", description="", quantifier_free=is_qf, theory=theory)
+    # Return a logic supported by PySMT that is close to the one computed
+    smtlib_logic = get_closer_smtlib_logic(logic)
+    print(f"logic (identified by PySMT): {smtlib_logic}")
+
+    # the below is commented out because PySMT does not support QF_UFNIA
+    # pysmt_logic = get_logic(f)
+    # print(f"logic (identified by PySMT): {pysmt_logic}")
 
     # script level info
     cmd_counter = Counter(cmd.name for cmd in script)
@@ -61,11 +73,6 @@ def main(smt_lib_path: str = typer.Argument(help="Path to SMT-LIB file")):
         bool_dag_size = f.size(SizeOracle.MEASURE_BOOL_DAG)
         bool_atoms = f.get_atoms()
         bool_atoms_size = len(bool_atoms)
-
-    env = get_env()
-    is_qf = env.qfo.is_qf(f)
-    theories = env.theoryo.get_theory(f)
-    types = env.typeso.get_types(f)
 
     # Extract all element counts
     element_counts = extract_features(smt_lib_path)
