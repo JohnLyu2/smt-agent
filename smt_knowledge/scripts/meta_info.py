@@ -46,7 +46,7 @@ def main(smt_lib_path: str = typer.Argument(help="Path to SMT-LIB file")):
     types = env.typeso.get_types(f)
 
     logic = Logic(name="Detected Logic", description="", quantifier_free=is_qf, theory=theory)
-    # Return a logic supported by PySMT that is close to the one computed
+    # A smtlib logic identified by PySMT
     smtlib_logic = get_closer_smtlib_logic(logic)
     print(f"logic (identified by PySMT): {smtlib_logic}")
 
