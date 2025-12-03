@@ -6,11 +6,12 @@ import typer
 import pysmt.smtlib.commands as smtcmd
 from pysmt.environment import get_env
 from pysmt.operators import op_to_str, QUANTIFIERS, BOOL_CONNECTIVES, CONSTANTS
-from pysmt.oracles import SizeOracle, get_logic
+from pysmt.oracles import SizeOracle
 from pysmt.smtlib.parser import SmtLibParser
 from pysmt.logics import Logic, get_closer_smtlib_logic
 
 from pysmt_walker_counter import extract_features
+from monomials_counter import count_monomials_in_formula
 
 app = typer.Typer()
 
@@ -50,7 +51,7 @@ def main(smt_lib_path: str = typer.Argument(help="Path to SMT-LIB file")):
     smtlib_logic = get_closer_smtlib_logic(logic)
     print(f"logic (identified by PySMT): {smtlib_logic}")
 
-    # the below is commented out because PySMT does not support QF_UFNIA
+    # the below is commented out because PySMT-supported logics does not include QF_UFNIA
     # pysmt_logic = get_logic(f)
     # print(f"logic (identified by PySMT): {pysmt_logic}")
 
@@ -94,29 +95,16 @@ def main(smt_lib_path: str = typer.Argument(help="Path to SMT-LIB file")):
     print(f"All appearing types: {types}")
 
     print(f"Is Quantifier-Free: {is_qf}")
-    # if not is_qf:
-    #     for quantifier in QUANTIFIERS:
-    #         count = element_counts.get(quantifier, 0)
-    #         quantifier_str = op_to_str(quantifier)
-    #         print(f"Num of {quantifier_str}: {count}")
-
-    # for bool_connective in BOOL_CONNECTIVES:
-    #     if count := element_counts.get(bool_connective, 0):
-    #         bool_connective_str = op_to_str(bool_connective)
-    #         print(f"Num of {bool_connective_str}: {count}")
-
-    # later may move counters of symbol, constant, and operator for different theories together
-    # for constant in CONSTANTS:
-    #     if count := element_counts.get(constant, 0):
-    #         constant_str = op_to_str(constant)
-    #         print(f"Num of {constant_str}: {count}")
-
-    # involved_theories = [theory for theory, present in theories.items() if present]
-    # print(f"Involved theories: {involved_theories}")
 
     print("\n=== Formula DAG Node Type Counts ===")
     for node_type, count in sorted(element_counts.items()):
         print(f"{op_to_str(node_type)}: {count}")
+
+    is_nonlinear = (theory.real_arithmetic or theory.integer_arithmetic) and not theory.linear
+    if is_nonlinear:
+        print("\n=== Non-Linear Arithmetic Features ===")
+        monomial_counts, monomials = count_monomials_in_formula(f)
+        print(f"Number of monomials: {monomial_counts}: {monomials}")
 
 
 if __name__ == "__main__":
