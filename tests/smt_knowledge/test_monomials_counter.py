@@ -22,13 +22,14 @@ def benchmarks_dir():
     [
         ("test_simple_nra_monimial.smt2", 4),
         ("test_nested_nra_monomial.smt2", 5),
+        ("test_all_kinds_monomial.smt2", 9),
     ],
 )
 def test_count_monomials_in_formula(benchmarks_dir, smt2_file, expected_count):
     """Test monomial counting on non-linear arithmetic formulas."""
     formula_path = benchmarks_dir / smt2_file
     formula = read_smtlib(str(formula_path))
-    count = count_monomials_in_formula(formula)
+    count, _ = count_monomials_in_formula(formula)
     assert count == expected_count
 
 
@@ -52,9 +53,9 @@ def test_monomial_counter_directly(benchmarks_dir):
     formula = read_smtlib(str(formula_path))
 
     counter = MonomialCounter()
-    count = counter.count_monomials(formula)
+    count, _ = counter.count_monomials(formula)
     assert count == 4
 
     # Test that counter resets properly
-    count2 = counter.count_monomials(formula)
+    count2, _ = counter.count_monomials(formula)
     assert count2 == 4

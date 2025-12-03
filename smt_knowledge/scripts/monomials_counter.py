@@ -2,16 +2,20 @@
 """
 Script to count all monomials in a formula if the theory is non-linear arithmetic.
 
-A monomial is a product of variables (possibly with a coefficient), such as:
-- x * y
-- x^2
-- 2 * x * y * z
-- x * y^2
+A variable term is either:
+- A variable (e.g., x)
+- A variable with a non-negative integer exponent (e.g., x^3)
+
+A monomial is either:
+- A variable with a non-negative integer exponent, OR
+- The product of at least two variable terms
+
+Examples:
+- Yes: 3x * y, u * v^2, z * (x^2 * y), y^3 [nested counts as multiple monomials, including exponents]
+- No: x (single variable without exponent), -3, 2 + y^3, x * (y - 1), u^(-1)
 
 Usage:
     python count_monomials.py <formula_file.smt2>
-    or
-    python count_monomials.py  # to use from Python API
 """
 
 import sys
@@ -25,61 +29,118 @@ from pysmt.shortcuts import read_smtlib, get_env
 class MonomialCounter(DagWalker):
     """Walker that counts monomials in a formula.
 
-    A monomial is identified as:
-    - A TIMES node that contains at least one variable (non-constant)
-    - A POW node where the base contains a variable
-
-    Note: Each TIMES node is counted separately. A flat TIMES like (* x y z)
-    counts as 1 monomial, while nested TIMES like (* x (* y z)) counts as 2 monomials.
+    A monomial is the product of at least two variable terms.
+    Nested TIMES nodes are counted as multiple monomials (each TIMES with >= 2 variable terms is counted separately).
     """
 
     def __init__(self, env=None):
         DagWalker.__init__(self, env=env)
         self.monomial_count = 0
+        # Track all TIMES nodes and their variable term counts
+        self.times_nodes = {}  # formula -> variable_term_count
+        # Track POW nodes that are variable terms
+        self.pow_nodes = []  # list of POW formulas that are variable terms
+        # Store the monomial formulas that are counted
+        self.monomials = []  # list of monomial formulas
 
     def count_monomials(self, formula):
-        """Count and return the number of monomials in the formula."""
+        """Count and return the number of monomials and the list of monomial formulas.
+
+        Returns:
+            tuple: (count, list_of_monomials) where count is int and list_of_monomials is list of FNode
+        """
         self.monomial_count = 0
+        self.monomials = []
+        self.times_nodes = {}
+        self.pow_nodes = []
         # Clear memoization to ensure fresh count
         self.memoization.clear()
         self.walk(formula)
-        return self.monomial_count
 
-    def _has_variable(self, formula):
-        """Check if a formula contains at least one variable (non-constant)."""
-        if formula.is_constant():
-            return False
+        # Now count monomials:
+        # 1. Count all TIMES nodes with >= 2 variable terms
+        # 2. Count POW nodes that are variable terms (single variable with exponent)
+        # Nested TIMES and POW nodes are counted separately (multiple monomials)
+        for times_node, var_count in self.times_nodes.items():
+            if var_count >= 2:
+                # Count this TIMES as a monomial
+                self.monomial_count += 1
+                self.monomials.append(times_node)
+
+        # Count all POW nodes that are variable terms (single variable with non-negative integer exponent)
+        # Count them even if they're nested inside TIMES nodes
+        for pow_node in self.pow_nodes:
+            self.monomial_count += 1
+            self.monomials.append(pow_node)
+
+        return self.monomial_count, self.monomials
+
+    def _is_variable_term(self, formula):
+        """Check if a formula is a variable term.
+
+        A variable term is either:
+        - A variable (symbol)
+        - A POW with a variable base and non-negative integer exponent
+        """
         if formula.is_symbol():
             return True
-        # Recursively check children
-        for arg in formula.args():
-            if self._has_variable(arg):
-                return True
+
+        if formula.node_type() == op.POW:
+            base = formula.arg(0)
+            exponent = formula.arg(1)
+            # Base must be a variable
+            if not base.is_symbol():
+                return False
+            # Exponent must be a non-negative integer constant
+            if not exponent.is_constant():
+                return False
+            try:
+                exp_value = exponent.constant_value()
+                # Check if it's a non-negative integer
+                # Handle int, float, and Fraction types
+                from fractions import Fraction
+
+                if isinstance(exp_value, int):
+                    return exp_value >= 0
+                elif isinstance(exp_value, float):
+                    # Check if it's a non-negative integer (2.0, 3.0, etc.)
+                    return exp_value >= 0 and (exp_value == int(exp_value))
+                elif isinstance(exp_value, Fraction):
+                    # Check if it's a non-negative integer fraction (2/1, 3/1, etc.)
+                    return exp_value >= 0 and exp_value.denominator == 1
+            except (ValueError, TypeError):
+                return False
         return False
+
+    def _count_variable_terms_in_times(self, formula):
+        """Count the number of variable terms in a TIMES node.
+
+        Recursively handles nested TIMES nodes by flattening them.
+        Returns the count of variable terms.
+        """
+        count = 0
+        for arg in formula.args():
+            if arg.is_times():
+                # Recursively count variable terms in nested TIMES
+                count += self._count_variable_terms_in_times(arg)
+            elif self._is_variable_term(arg):
+                count += 1
+        return count
 
     @walkers.handles([op.TIMES])
     def walk_times(self, formula, args, **kwargs):
-        """Handle TIMES nodes - count as monomial if it contains variables."""
-        # DAG walker memoizes, so we only process each node once
-        # Check if at least one argument contains a variable
-        has_var = False
-        for arg in formula.args():
-            if self._has_variable(arg):
-                has_var = True
-                break
-
-        # Count this TIMES as a monomial if it has variables
-        if has_var:
-            self.monomial_count += 1
-
+        """Handle TIMES nodes - collect information about variable terms."""
+        # Count variable terms in this TIMES (including nested TIMES)
+        var_term_count = self._count_variable_terms_in_times(formula)
+        self.times_nodes[formula] = var_term_count
         return None
 
     @walkers.handles([op.POW])
     def walk_pow(self, formula, args, **kwargs):
-        """Handle POW nodes - count as monomial if base contains a variable."""
-        base = formula.arg(0)
-        if self._has_variable(base):
-            self.monomial_count += 1
+        """Handle POW nodes - collect those that are variable terms (single variable with exponent)."""
+        # Check if this POW is a variable term (base is variable, exponent is non-negative integer)
+        if self._is_variable_term(formula):
+            self.pow_nodes.append(formula)
         return None
 
     # Handle all other node types - just traverse, don't count
@@ -97,7 +158,7 @@ def count_monomials_in_formula(formula, env=None):
         env: Optional environment (defaults to current environment)
 
     Returns:
-        int: Number of monomials found
+        tuple: (count, monomials) where count is int and monomials is list of FNode
 
     Raises:
         AssertionError: If the theory is not non-linear arithmetic
@@ -132,9 +193,13 @@ def main():
         formula = read_smtlib(filename)
 
         # Count monomials
-        count = count_monomials_in_formula(formula)
+        count, monomials = count_monomials_in_formula(formula)
 
         print(f"Number of monomials: {count}")
+        if count > 0:
+            print("\nMonomials found:")
+            for i, monomial in enumerate(monomials, 1):
+                print(f"  {i}. {monomial}")
 
     except AssertionError as e:
         print(f"Theory is not non-linear arithmetic: {e}", file=sys.stderr)
