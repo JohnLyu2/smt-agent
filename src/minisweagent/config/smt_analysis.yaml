@@ -20,7 +20,7 @@ agent:
 
     - **Problem Overview**: Describe the logic, source, and general purpose of the problem. Include meta information such as problem size and counts of relevant symbols. You can first run the Python script `{{knowledge_dir}}/scripts/meta_info.py` to extract basic meta statistics.
 
-    - **File Organization**: Even if the problem is very long, it is usually structured into serveral sections, such as: meta information (e.g., logic, source, authors), variable and function declarations and definitions, and assertions grouped by difference purposes. Provide a high-level outline of how the file is organized into sections, including approximate line ranges for each section.
+    - **File Organization**: Even if the problem is very long, it is usually structured into several sections, such as: meta information (e.g., logic, source, authors), variable and function declarations and definitions, and assertions grouped by different purposes. Provide a high-level outline of how the file is organized into sections, including approximate line ranges for each section.
 
     - **Interpretation**: When possible, infer and explain the meaning of key variables, functions, predicates, constraints, and the problem. 
 
